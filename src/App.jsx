@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { ChevronLeft, ChevronRight, RotateCcw, BookOpen, Calculator, BrainCircuit, CheckCircle2, XCircle, GraduationCap, Trophy, RefreshCw } from 'lucide-react';
+import { ChevronLeft, ChevronRight, RotateCcw, BookOpen, Calculator, BrainCircuit, CheckCircle2, XCircle, GraduationCap, Trophy, RefreshCw, BookText, Filter } from 'lucide-react';
 
 // --- DATA: CORE FLASHCARDS (THEORY & CONCEPTS) ---
 const flashcardsData = [
@@ -28,49 +28,28 @@ const flashcardsData = [
   { id: 'f23', chapter: "Ch 33: International Macroeconomics", question: "What is the 'Impossible Trinity' (Trilemma)?", answer: "A country cannot simultaneously have: \n1. Free movement of capital\n2. An independent monetary policy\n3. A fixed exchange rate." }
 ];
 
-// --- DATA: PRACTICE LAB (COMPUTATIONS - EXPANDED MULTIPLE PER TOPIC) ---
+// --- DATA: PRACTICE LAB (COMPUTATIONS) ---
 const practiceData = [
-  // COMP 1 & 9: Flow & Savings
   { id: 'p1', chapter: "Ch 25: Savings & Financial System", topic: "COMP 1 & 9: Closed Economy Savings Identity", question: "In a closed economy: GDP = $1,000M, Consumer Spending (C) = $850M, Taxes (T) = $50M, Government Purchases (G) = $100M. \n\nCalculate Investment Spending (I), Private Savings, and the Budget Balance.", solution: "1. Investment Spending (I) = GDP - C - G = 1,000 - 850 - 100 = $50M\n2. Private Savings = GDP - T - C = 1,000 - 50 - 850 = $100M\n3. Budget Balance = T - G = 50 - 100 = -$50M (Deficit)\n(National Savings = Private + Budget = 100 - 50 = $50M = I)" },
   { id: 'p2', chapter: "Ch 25: Savings & Financial System", topic: "COMP 1 & 9: Open Economy Savings Identity", question: "In an open economy:\nExports (X) = $125M\nImports (IM) = $80M\nBudget Balance = -$200M (Deficit)\nInvestment Spending (I) = $350M\n\nCalculate Private Savings.", solution: "Identity: I = Private Savings + Budget Balance + Net Capital Inflow (IM - X)\n\n350 = Private Savings + (-200) + (80 - 125)\n350 = Private Savings - 200 - 45\n350 = Private Savings - 245\n\nPrivate Savings = 350 + 245 = $595M" },
   { id: 'p3', chapter: "Ch 25: Savings & Financial System", topic: "COMP 9: Capital Inflow / Outflow", question: "Capsland has Investment Spending = 20% of GDP, Private Savings = 10% of GDP, and Net Capital Inflow = 5% of GDP.\n\nCalculate the Budget Balance as a % of GDP.", solution: "I = Private Savings + Budget Balance + Net Capital Inflow\n20% = 10% + Budget Balance + 5%\n20% = 15% + Budget Balance\nBudget Balance = 5% (Surplus)" },
-
-  // COMP 2: GDP Methods
   { id: 'p4', chapter: "Ch 22: GDP and CPI", topic: "COMP 2: Value Add vs Final Sales vs Factor Income", question: "A bread company sells $50 of bread to a pizza company (Wages = 15). \nA cheese company sells $35 of cheese to the pizza company (Wages = 20). \nThe pizza company sells $200 of pizza to consumers (Wages = 75).\n\nCalculate GDP using all three methods.", solution: "(A) Value-Added:\nBread: $50, Cheese: $35, Pizza: $200 - $50 - $35 = $115. Total = $200\n\n(B) Final Goods:\nOnly pizza is sold to final consumers = $200\n\n(C) Factor Income (Wages + Profits):\nBread: W=15, Profit=(50-15)=35\nCheese: W=20, Profit=(35-20)=15\nPizza: W=75, Profit=(200-85-75)=40\nTotal GDP = (15+35) + (20+15) + (75+40) = $200" },
-
-  // COMP 3 & 4: Deflator, CPI, Inflation
   { id: 'p5', chapter: "Ch 22: GDP and CPI", topic: "COMP 3: Nominal vs Real GDP & Deflator", question: "In 2013, Nominal GDP is $16,785B and Real GDP is $16,495B.\nIn 2014, Nominal GDP is $17,527B and Real GDP is $16,912B.\n\nCalculate the GDP Deflator for both years and the resulting Inflation Rate.", solution: "1. Deflator 2013: (16,785 / 16,495) × 100 = 101.8\n2. Deflator 2014: (17,527 / 16,912) × 100 = 103.6\n3. Inflation Rate: [(103.6 - 101.8) / 101.8] × 100 = 1.8%" },
   { id: 'p6', chapter: "Ch 22: GDP and CPI", topic: "COMP 4: Price Index & Inflation", question: "A pre-frost market basket costs $95.00.\nAfter the frost, the exact same market basket costs $175.00.\n\nAssuming the pre-frost period is the base year (Index = 100), calculate the post-frost Price Index and the Inflation Rate.", solution: "1. Price Index: ($175.00 / $95.00) × 100 = 184.2\n2. Inflation Rate: [(184.2 - 100) / 100] × 100 = 84.2%" },
-
-  // COMP 5: Employment
   { id: 'p7', chapter: "Ch 23: Unemployment and Inflation", topic: "COMP 5: Employment Aggregates", question: "In the South region, the Labor Force is 60,909k and the number of Unemployed is 2,074k. The total adult population is 100,000k.\n\nCalculate the Number of Employed, the Unemployment Rate, and the LF Participation Rate.", solution: "1. Employed: 60,909k - 2,074k = 58,835k\n2. Unemployment Rate: (2,074 / 60,909) × 100 = 3.4%\n3. LF Participation Rate: (60,909 / 100,000) × 100 = 60.9%" },
-
-  // COMP 6: Winners & Losers (Debt Deflation)
   { id: 'p8', chapter: "Ch 25: Savings & Financial System", topic: "COMP 6: Inflation Winners and Losers", question: "Lynn lends Boris $10,000 at a nominal interest rate of 8%. Both expect 5% inflation (a 3% real interest rate).\n\nIf actual inflation is 4%, calculate the actual real interest rate. Who is the winner?", solution: "Actual Real Interest Rate = Nominal Rate - Actual Inflation = 8% - 4% = 4%\n\nBecause the real interest rate (4%) is higher than expected (3%), the lender (Lynn) WINS. She receives a higher real return than expected." },
   { id: 'p9', chapter: "Ch 31: Inflation & Deflation", topic: "COMP 6: Debt Deflation (Losers)", question: "The Miller family takes a mortgage of $100,000 to buy a house worth $105,000. During the first year, prices unexpectedly fall by 10% (Deflation).\n\nWho are the winners and losers?", solution: "The value of the house falls to $94,500. They still owe $100,000.\nThe Millers (Borrowers) LOSE because the real burden of their debt increased, and their asset is underwater.\nThe Mortgage Company (Lender) theoretically WINS (money repaid is worth more), but risks default if the Millers walk away." },
-
-  // COMP 7 & 8: Rule of 70 & Production
   { id: 'p10', chapter: "Ch 24: Long-Run Economic Growth", topic: "COMP 7: Rule of 70", question: "High-income countries have an average annual growth rate of 1.0%.\nMiddle-income countries grow at 3.6%.\n\nCalculate the number of years it will take each group to double their per capita GDP.", solution: "High-income: 70 / 1.0 = 70 years to double.\nMiddle-income: 70 / 3.6 = 19.4 years to double." },
   { id: 'p11', chapter: "Ch 24: Long-Run Economic Growth", topic: "COMP 8: Potential GDP & Production Function", question: "Using Y = T × K^α.\nAt Point A: Real GDP (Y) is 30,000 and Physical Capital (K) is 20,000.\nAt Point B: Real GDP (Y) is 50,000 and Physical Capital (K) is 40,000.\n\nCalculate the coefficient α.", solution: "α = ln(Y2/Y1) / ln(K2/K1)\nY2/Y1 = 50,000 / 30,000 = 5/3\nK2/K1 = 40,000 / 20,000 = 2\n\nα = ln(5/3) / ln(2) = 0.5108 / 0.6931 = 0.736" },
-
-  // COMP 10, 11, 12: Income Expenditure
   { id: 'p12', chapter: "Ch 26: Income and Expenditure", topic: "COMP 10: Consumption Function Parameters", question: "At a disposable income of $20,000, consumer spending is $15,000.\nAt $40,000 disposable income, spending is $29,000.\n\nCalculate the MPC, the autonomous consumer spending (a), and write the consumption function.", solution: "1. MPC = (29,000 - 15,000) / (40,000 - 20,000) = 14,000 / 20,000 = 0.7\n2. Autonomous Spending (a) = 15,000 - (0.7 × 20,000) = 1,000\n3. Function: c = 1000 + 0.7yd" },
   { id: 'p13', chapter: "Ch 28: Fiscal Policy", topic: "COMP 11: Multiplier (Purchases vs Transfers)", question: "The MPC is 0.6. \nCalculate the total change in Real GDP if:\n1. The government reduces purchases (G) by $10 billion.\n2. The government reduces transfers (TR) by $10 billion.", solution: "1. Gov Purchases Multiplier = 1 / (1 - MPC) = 1 / 0.4 = 2.5\nΔGDP = 2.5 × (-$10B) = -$25 billion.\n\n2. Transfers Multiplier = MPC / (1 - MPC) = 0.6 / 0.4 = 1.5\nΔGDP = 1.5 × (-$10B) = -$15 billion." },
   { id: 'p14', chapter: "Ch 26: Income and Expenditure", topic: "COMP 12: Aggregate Spending Equation", question: "Autonomous consumer spending = $250B\nPlanned investment (I_planned) = $350B\nMPC = 2/3\n\nCalculate planned aggregate spending (AE_planned) when Real GDP is $600B. Then find the equilibrium GDP (Y*).", solution: "1. AE_planned = C + I_planned\nAE_planned = 250 + (2/3)Y + 350 = 600 + (2/3)Y\nAt Y = 600: AE_planned = 600 + (2/3)(600) = $1,000B.\n\n2. Equilibrium Y* occurs when Y = AE_planned:\nY = 600 + (2/3)Y\n(1/3)Y = 600\nY* = $1,800B." },
-
-  // COMP 14: Inflation Tax
   { id: 'p15', chapter: "Ch 31: Inflation & Deflation", topic: "COMP 14: Seigniorage & Inflation Tax", question: "Maria holds $1,000 in cash. Over the year, the inflation rate is 10%. \nCalculate the real inflation tax paid by Maria. \nIf the inflation rate was 25%, what would the tax be?", solution: "Real Inflation Tax = Inflation Rate × Real Money Holdings.\n\nAt 10% inflation:\n0.10 × $1,000 = $100.\n\nAt 25% inflation:\n0.25 × $1,000 = $250." },
   { id: 'p16', chapter: "Ch 31: Inflation & Deflation", topic: "COMP 14: Comparing Inflation Tax", question: "In India (2019), the Inflation Rate was 7.66% and the Money Supply was Rp 36,883 Billion.\n\nCalculate the Inflation Tax.", solution: "Inflation Tax = Inflation Rate × Money Supply\nInflation Tax = 0.0766 × 36,883 = Rp 2,825 Billion." },
-
-  // COMP 16: Velocity
   { id: 'p17', chapter: "Ch 32: Events and Ideas", topic: "COMP 16: Velocity of Money", question: "In Egypt, Nominal GDP is 1,838 billion Egyptian pounds and M1 is 540 billion Egyptian pounds.\n\nCalculate the velocity of money.", solution: "Velocity Equation: M × V = P × Y (where P × Y is Nominal GDP).\n\nV = Nominal GDP / M\nV = 1,838 / 540 = 3.4" },
-  { id: 'p18', chapter: "Ch 32: Events and Ideas", topic: "COMP 16: Velocity of Money 2", question: "In South Korea, Nominal GDP is 1,466,788 Billion Won and M1 is 734,412 Billion Won. Calculate Velocity.", solution: "V = Nominal GDP / M\nV = 1,466,788 / 734,412 = 2.0" },
-
-  // COMP 17, 18, 19: Intl Macro
-  { id: 'p19', chapter: "Ch 33: International Macroeconomics", topic: "COMP 17: Balance of Payments", question: "Scottopia has:\nExports of Goods = $400B, Exports of Services = $300B.\nImports of Goods = $500B, Imports of Services = $350B.\nForeigners purchase $250B of Scottopian assets.\n\nCalculate the Current Account (CA) and the Financial Account (FA).", solution: "1. Current Account (CA):\nCA = (400 + 300) - (500 + 350) = 700 - 850 = -$150B (Deficit)\n\n2. Financial Account (FA):\nSince CA + FA = 0, FA must be +$150B (Surplus).\n(Meaning Scottopians bought $100B in foreign assets to offset the $250B foreigners bought)." },
-  { id: 'p20', chapter: "Ch 33: International Macroeconomics", topic: "COMP 17: Balance of Payments 2", question: "Popania purchases $300B of foreign assets. Foreigners purchase $400B of Popanian assets. Popania exports $350B of goods/services.\n\nCalculate the FA, CA, and the value of Imports.", solution: "1. Financial Account (FA) = Foreign purchases - Domestic purchases abroad\nFA = 400 - 300 = +$100B\n\n2. Current Account (CA) = -FA = -$100B\n\n3. CA = Exports - Imports\n-100 = 350 - Imports\nImports = $450B" },
-  { id: 'p21', chapter: "Ch 33: International Macroeconomics", topic: "COMP 18: Real Exchange Rates", question: "The nominal exchange rate is 18.82 Mexican Pesos per 1 USD.\nThe US Price Index is 120 and the Mexican Price Index is 150.\n\nCalculate the Real Exchange Rate (Pesos per Dollar).", solution: "Real Exchange Rate = Nominal Exchange Rate × (Domestic Price Level / Foreign Price Level)\n*Assuming US is domestic, Mexico is foreign:\n\nReal Rate = 18.82 × (120 / 150) = 18.82 × 0.8 = 15.056 Pesos per USD." },
-  { id: 'p22', chapter: "Ch 33: International Macroeconomics", topic: "COMP 19: Purchasing Power Parity", question: "A Big Mac costs $5.67 in the US and 50 Pesos in Mexico. The actual nominal exchange rate is 18.82 Pesos per Dollar.\n\nCalculate the Implied Purchasing Power Parity (PPP) exchange rate.", solution: "PPP is the exchange rate that equalizes the cost of the basket in both countries.\n\nImplied PPP = Price in MXN / Price in USD\nImplied PPP = 50 / 5.67 = 8.82 Pesos per USD.\n\n(Because 8.82 < 18.82, the Peso is currently undervalued compared to PPP)." }
+  { id: 'p18', chapter: "Ch 33: International Macroeconomics", topic: "COMP 17: Balance of Payments", question: "Scottopia has:\nExports of Goods = $400B, Exports of Services = $300B.\nImports of Goods = $500B, Imports of Services = $350B.\nForeigners purchase $250B of Scottopian assets.\n\nCalculate the Current Account (CA) and the Financial Account (FA).", solution: "1. Current Account (CA):\nCA = (400 + 300) - (500 + 350) = 700 - 850 = -$150B (Deficit)\n\n2. Financial Account (FA):\nSince CA + FA = 0, FA must be +$150B (Surplus).\n(Meaning Scottopians bought $100B in foreign assets to offset the $250B foreigners bought)." },
+  { id: 'p19', chapter: "Ch 33: International Macroeconomics", topic: "COMP 18: Real Exchange Rates", question: "The nominal exchange rate is 18.82 Mexican Pesos per 1 USD.\nThe US Price Index is 120 and the Mexican Price Index is 150.\n\nCalculate the Real Exchange Rate (Pesos per Dollar).", solution: "Real Exchange Rate = Nominal Exchange Rate × (Domestic Price Level / Foreign Price Level)\n*Assuming US is domestic, Mexico is foreign:\n\nReal Rate = 18.82 × (120 / 150) = 18.82 × 0.8 = 15.056 Pesos per USD." },
+  { id: 'p20', chapter: "Ch 33: International Macroeconomics", topic: "COMP 19: Purchasing Power Parity", question: "A Big Mac costs $5.67 in the US and 50 Pesos in Mexico. The actual nominal exchange rate is 18.82 Pesos per Dollar.\n\nCalculate the Implied Purchasing Power Parity (PPP) exchange rate.", solution: "PPP is the exchange rate that equalizes the cost of the basket in both countries.\n\nImplied PPP = Price in MXN / Price in USD\nImplied PPP = 50 / 5.67 = 8.82 Pesos per USD.\n\n(Because 8.82 < 18.82, the Peso is currently undervalued compared to PPP)." }
 ];
 
 // --- COMPONENTS ---
@@ -102,9 +81,10 @@ const Confetti = () => {
 }
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState('flashcards'); // 'flashcards', 'practice', 'test'
+  const [activeTab, setActiveTab] = useState('crashcourse'); // 'crashcourse', 'flashcards', 'practice', 'test'
   const [selectedChapter, setSelectedChapter] = useState("All Chapters");
   const [showConfetti, setShowConfetti] = useState(false);
+  const [showNeedsReviewOnly, setShowNeedsReviewOnly] = useState(false); // New Toggle for Needs Review Filter
 
   // Progress Tracking State (Persisted in localStorage)
   const [progress, setProgress] = useState(() => {
@@ -127,16 +107,33 @@ export default function App() {
   // Flashcard State
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isFlipped, setIsFlipped] = useState(false);
-  const filteredCards = useMemo(() => 
-    selectedChapter === "All Chapters" ? flashcardsData : flashcardsData.filter(c => c.chapter === selectedChapter),
-  [selectedChapter]);
+  
+  // Filter logic combining Chapter AND "Needs Review"
+  const filteredCards = useMemo(() => {
+    let subset = flashcardsData;
+    if (selectedChapter !== "All Chapters") {
+      subset = subset.filter(c => c.chapter === selectedChapter);
+    }
+    if (showNeedsReviewOnly) {
+      subset = subset.filter(c => progress[c.id] === 'review');
+    }
+    return subset;
+  }, [selectedChapter, showNeedsReviewOnly, progress]);
 
   // Practice State
   const [practiceIndex, setPracticeIndex] = useState(0);
   const [showSolution, setShowSolution] = useState(false);
-  const filteredPractice = useMemo(() => 
-    selectedChapter === "All Chapters" ? practiceData : practiceData.filter(p => p.chapter.includes(selectedChapter)),
-  [selectedChapter]);
+  
+  const filteredPractice = useMemo(() => {
+    let subset = practiceData;
+    if (selectedChapter !== "All Chapters") {
+      subset = subset.filter(p => p.chapter.includes(selectedChapter));
+    }
+    if (showNeedsReviewOnly) {
+      subset = subset.filter(p => progress[p.id] === 'review');
+    }
+    return subset;
+  }, [selectedChapter, showNeedsReviewOnly, progress]);
 
   // Test Mode State
   const [testState, setTestState] = useState('idle'); // idle, running, results
@@ -149,7 +146,7 @@ export default function App() {
     setPracticeIndex(0);
     setIsFlipped(false);
     setShowSolution(false);
-  }, [selectedChapter, activeTab]);
+  }, [selectedChapter, showNeedsReviewOnly, activeTab]);
 
   const chapters = ["All Chapters", ...new Set(flashcardsData.map(card => card.chapter))];
 
@@ -162,10 +159,10 @@ export default function App() {
 
   // Calculate Mastery
   const calculateMastery = () => {
-    let totalItems = filteredCards.length + filteredPractice.length;
+    let totalItems = flashcardsData.length + practiceData.length;
     let masteredCount = 0;
-    filteredCards.forEach(c => { if (progress[c.id] === 'mastered') masteredCount++; });
-    filteredPractice.forEach(p => { if (progress[p.id] === 'mastered') masteredCount++; });
+    flashcardsData.forEach(c => { if (progress[c.id] === 'mastered') masteredCount++; });
+    practiceData.forEach(p => { if (progress[p.id] === 'mastered') masteredCount++; });
     return totalItems === 0 ? 0 : Math.round((masteredCount / totalItems) * 100);
   };
 
@@ -177,11 +174,21 @@ export default function App() {
 
   // Test Mode Logic
   const startTest = () => {
-    // Pick 5 random cards and 5 random practices (or max available)
-    const shuffledCards = [...filteredCards].sort(() => 0.5 - Math.random()).slice(0, 5).map(c => ({...c, type: 'card'}));
-    const shuffledPractice = [...filteredPractice].sort(() => 0.5 - Math.random()).slice(0, 5).map(p => ({...p, type: 'practice'}));
+    // Pick 5 random cards and 5 random practices from the current filter
+    let cardPool = selectedChapter === "All Chapters" ? flashcardsData : flashcardsData.filter(c => c.chapter === selectedChapter);
+    let practicePool = selectedChapter === "All Chapters" ? practiceData : practiceData.filter(p => p.chapter.includes(selectedChapter));
+    
+    if (showNeedsReviewOnly) {
+      cardPool = cardPool.filter(c => progress[c.id] === 'review');
+      practicePool = practicePool.filter(p => progress[p.id] === 'review');
+    }
+
+    const shuffledCards = [...cardPool].sort(() => 0.5 - Math.random()).slice(0, 5).map(c => ({...c, type: 'card'}));
+    const shuffledPractice = [...practicePool].sort(() => 0.5 - Math.random()).slice(0, 5).map(p => ({...p, type: 'practice'}));
     const combined = [...shuffledCards, ...shuffledPractice].sort(() => 0.5 - Math.random());
     
+    if (combined.length === 0) return; // Prevent empty test
+
     setTestQueue(combined);
     setCurrentIndex(0);
     setTestScore({ correct: 0, total: combined.length });
@@ -209,39 +216,52 @@ export default function App() {
       
       {/* Header & Navigation */}
       <header className="bg-blue-900 text-white shadow-md">
-        <div className="max-w-4xl mx-auto px-4 py-5 flex flex-col md:flex-row justify-between items-center gap-4 border-b border-blue-800">
+        <div className="max-w-5xl mx-auto px-4 py-4 flex flex-col lg:flex-row justify-between items-center gap-4 border-b border-blue-800">
           <div className="flex items-center gap-2">
             <BookOpen size={28} className="text-blue-300" />
-            <h1 className="text-2xl font-bold tracking-tight">Macro Exam Prep</h1>
+            <h1 className="text-2xl font-bold tracking-tight whitespace-nowrap">Macro Exam Prep</h1>
           </div>
           
-          <div className="flex bg-blue-950 rounded-lg p-1 w-full md:w-auto overflow-x-auto">
-            <button onClick={() => {setActiveTab('flashcards'); setTestState('idle');}} className={`flex items-center gap-2 px-4 py-2 rounded-md font-medium transition-colors whitespace-nowrap ${activeTab === 'flashcards' ? 'bg-blue-600 text-white' : 'text-blue-300 hover:text-white hover:bg-blue-800'}`}>
+          <div className="flex bg-blue-950 rounded-lg p-1 w-full lg:w-auto overflow-x-auto snap-x scrollbar-hide">
+            <button onClick={() => {setActiveTab('crashcourse'); setTestState('idle');}} className={`shrink-0 flex items-center gap-2 px-3 py-2 rounded-md font-medium transition-colors ${activeTab === 'crashcourse' ? 'bg-blue-600 text-white' : 'text-blue-300 hover:text-white hover:bg-blue-800'}`}>
+              <BookText size={18} /> Crash Course
+            </button>
+            <button onClick={() => {setActiveTab('flashcards'); setTestState('idle');}} className={`shrink-0 flex items-center gap-2 px-3 py-2 rounded-md font-medium transition-colors ${activeTab === 'flashcards' ? 'bg-blue-600 text-white' : 'text-blue-300 hover:text-white hover:bg-blue-800'}`}>
               <BrainCircuit size={18} /> Concepts
             </button>
-            <button onClick={() => {setActiveTab('practice'); setTestState('idle');}} className={`flex items-center gap-2 px-4 py-2 rounded-md font-medium transition-colors whitespace-nowrap ${activeTab === 'practice' ? 'bg-blue-600 text-white' : 'text-blue-300 hover:text-white hover:bg-blue-800'}`}>
+            <button onClick={() => {setActiveTab('practice'); setTestState('idle');}} className={`shrink-0 flex items-center gap-2 px-3 py-2 rounded-md font-medium transition-colors ${activeTab === 'practice' ? 'bg-blue-600 text-white' : 'text-blue-300 hover:text-white hover:bg-blue-800'}`}>
               <Calculator size={18} /> Practice Lab
             </button>
-            <button onClick={() => setActiveTab('test')} className={`flex items-center gap-2 px-4 py-2 rounded-md font-medium transition-colors whitespace-nowrap ${activeTab === 'test' ? 'bg-amber-600 text-white' : 'text-blue-300 hover:text-white hover:bg-blue-800'}`}>
+            <button onClick={() => setActiveTab('test')} className={`shrink-0 flex items-center gap-2 px-3 py-2 rounded-md font-medium transition-colors ${activeTab === 'test' ? 'bg-amber-600 text-white' : 'text-blue-300 hover:text-white hover:bg-blue-800'}`}>
               <GraduationCap size={18} /> Test Mode
             </button>
           </div>
         </div>
 
         {/* Filter and Progress Bar */}
-        {activeTab !== 'test' && (
+        {activeTab !== 'crashcourse' && activeTab !== 'test' && (
           <div className="bg-blue-800 py-3">
-            <div className="max-w-4xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-4">
-              <select 
-                className="bg-blue-900 text-white border border-blue-600 rounded-md px-4 py-1.5 outline-none focus:ring-2 focus:ring-blue-400 font-medium text-sm w-full sm:w-auto"
-                value={selectedChapter}
-                onChange={(e) => setSelectedChapter(e.target.value)}
-              >
-                {chapters.map(chap => <option key={chap} value={chap}>{chap}</option>)}
-              </select>
+            <div className="max-w-5xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4">
               
-              <div className="flex items-center gap-3 w-full sm:w-1/2">
-                <span className="text-sm font-medium text-blue-200 whitespace-nowrap">Mastery: {calculateMastery()}%</span>
+              <div className="flex items-center gap-4 w-full md:w-auto">
+                <select 
+                  className="bg-blue-900 text-white border border-blue-600 rounded-md px-3 py-1.5 outline-none focus:ring-2 focus:ring-blue-400 font-medium text-sm flex-1 md:flex-none"
+                  value={selectedChapter}
+                  onChange={(e) => setSelectedChapter(e.target.value)}
+                >
+                  {chapters.map(chap => <option key={chap} value={chap}>{chap}</option>)}
+                </select>
+
+                <button 
+                  onClick={() => setShowNeedsReviewOnly(!showNeedsReviewOnly)}
+                  className={`flex items-center gap-2 px-3 py-1.5 rounded-md border text-sm font-bold transition-all ${showNeedsReviewOnly ? 'bg-orange-500 border-orange-500 text-white shadow-inner' : 'bg-blue-900 border-blue-600 text-blue-200 hover:text-white hover:border-blue-400'}`}
+                >
+                  <Filter size={16} /> Needs Review Only
+                </button>
+              </div>
+              
+              <div className="flex items-center gap-3 w-full md:w-1/3">
+                <span className="text-sm font-medium text-blue-200 whitespace-nowrap">Overall Mastery: {calculateMastery()}%</span>
                 <div className="w-full bg-blue-950 rounded-full h-2.5">
                   <div className="bg-green-400 h-2.5 rounded-full transition-all duration-500" style={{ width: `${calculateMastery()}%` }}></div>
                 </div>
@@ -252,8 +272,34 @@ export default function App() {
       </header>
 
       {/* Main Content Area */}
-      <main className="flex-1 flex flex-col items-center justify-start p-4 max-w-4xl mx-auto w-full pt-8">
+      <main className="flex-1 flex flex-col items-center justify-start p-4 max-w-4xl mx-auto w-full pt-8 pb-12">
         
+        {/* CRASH COURSE MODE */}
+        {activeTab === 'crashcourse' && (
+          <div className="w-full animate-in fade-in duration-500 flex flex-col gap-6">
+            <div className="bg-white rounded-2xl shadow-sm p-8 text-center border border-slate-200">
+              <h2 className="text-3xl font-bold text-slate-800 mb-2">Macroeconomics Crash Course</h2>
+              <p className="text-slate-500 text-lg">Scroll through to quickly absorb the core concepts before testing yourself.</p>
+            </div>
+
+            {chapters.filter(c => c !== "All Chapters").map(chap => (
+              <div key={chap} className="bg-white rounded-2xl shadow-sm overflow-hidden border border-slate-200">
+                <div className="bg-blue-50 border-b border-blue-100 p-4 px-6">
+                  <h3 className="font-bold text-blue-900 text-lg">{chap}</h3>
+                </div>
+                <div className="divide-y divide-slate-100">
+                  {flashcardsData.filter(c => c.chapter === chap).map((card, idx) => (
+                    <div key={idx} className="p-6 flex flex-col md:flex-row gap-4 hover:bg-slate-50 transition-colors">
+                      <div className="md:w-1/3 font-semibold text-slate-700">{card.question}</div>
+                      <div className="md:w-2/3 text-slate-600 whitespace-pre-line leading-relaxed">{card.answer}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
         {/* FLASHCARD MODE */}
         {activeTab === 'flashcards' && (
           <div className="w-full max-w-2xl flex flex-col animate-in fade-in duration-500">
@@ -295,14 +341,14 @@ export default function App() {
                 </div>
               </>
             ) : (
-              <div className="text-center text-slate-500 p-10 bg-white rounded-2xl shadow-sm"><BookOpen size={48} className="mx-auto mb-4 text-slate-300" /><h2 className="text-xl font-medium">No cards found</h2></div>
+              <div className="text-center text-slate-500 p-10 bg-white rounded-2xl shadow-sm"><Filter size={48} className="mx-auto mb-4 text-slate-300" /><h2 className="text-xl font-medium">No cards found</h2><p className="mt-2 text-sm">Adjust your filters above to see more.</p></div>
             )}
           </div>
         )}
 
         {/* PRACTICE LAB MODE */}
         {activeTab === 'practice' && (
-          <div className="w-full max-w-3xl flex flex-col animate-in fade-in duration-500">
+          <div className="w-full max-w-3xl flex flex-col animate-in fade-in slide-in-from-bottom-4 duration-500">
             {filteredPractice.length > 0 ? (
               <>
                 <div className="mb-4 flex justify-between items-end px-2">
@@ -351,7 +397,7 @@ export default function App() {
                 </div>
               </>
              ) : (
-              <div className="text-center text-slate-500 p-10 bg-white rounded-2xl shadow-sm"><Calculator size={48} className="mx-auto mb-4 text-slate-300" /><h2 className="text-xl font-medium">No practice tasks found</h2></div>
+              <div className="text-center text-slate-500 p-10 bg-white rounded-2xl shadow-sm"><Filter size={48} className="mx-auto mb-4 text-slate-300" /><h2 className="text-xl font-medium">No practice tasks found</h2><p className="mt-2 text-sm">Adjust your filters above to see more.</p></div>
             )}
           </div>
         )}
@@ -366,7 +412,7 @@ export default function App() {
                 <p className="text-slate-600 mb-8 leading-relaxed">This mode pulls a random mix of 10 theory flashcards and computation problems from your current filter. <br/>Challenge yourself under exam conditions!</p>
                 
                 <div className="bg-amber-50 p-4 rounded-lg mb-8 text-amber-800 font-medium">
-                  Current Scope: {selectedChapter}
+                  Current Scope: {selectedChapter} {showNeedsReviewOnly ? '(Needs Review Only)' : ''}
                 </div>
 
                 <button onClick={startTest} className="px-8 py-4 rounded-full bg-amber-500 hover:bg-amber-600 text-white font-bold shadow-md hover:shadow-lg transition-all text-lg flex items-center gap-2 mx-auto">
@@ -432,6 +478,10 @@ export default function App() {
                   <RefreshCw size={20} /> Take Another Test
                 </button>
               </div>
+            )}
+
+            {testState === 'running' && testQueue.length === 0 && (
+              <div className="text-center text-slate-500 p-10 bg-white rounded-2xl shadow-sm w-full"><Filter size={48} className="mx-auto mb-4 text-slate-300" /><h2 className="text-xl font-medium">No questions found</h2><p className="mt-2 text-sm">Adjust your filters to take a test.</p><button onClick={() => setTestState('idle')} className="mt-4 px-4 py-2 bg-slate-100 rounded-md">Go Back</button></div>
             )}
           </div>
         )}
