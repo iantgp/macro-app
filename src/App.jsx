@@ -1,34 +1,297 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { ChevronLeft, ChevronRight, RotateCcw, BookOpen, Calculator, BrainCircuit, CheckCircle2, XCircle, GraduationCap, Trophy, RefreshCw, BookText, Filter } from 'lucide-react';
 
-// --- DATA: CORE FLASHCARDS (THEORY & CONCEPTS) ---
+// --------------------------------------------------------------------------
+// 100% MATHEMATICALLY ACCURATE MACROECONOMIC SVG GRAPHICS
+// --------------------------------------------------------------------------
+
+const ChartBusinessCycle = () => (
+  <div className="w-full max-w-md mx-auto my-6 p-5 bg-white border border-slate-200 rounded-2xl shadow-sm">
+    <h4 className="text-center font-extrabold text-slate-800 mb-4 text-lg">The Business Cycle</h4>
+    <svg viewBox="0 0 400 240" className="w-full h-auto overflow-visible">
+      <defs>
+        <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#94a3b8" />
+        </marker>
+      </defs>
+      
+      {/* Axes */}
+      <line x1="40" y1="200" x2="380" y2="200" stroke="#94a3b8" strokeWidth="2" markerEnd="url(#arrow)"/>
+      <line x1="40" y1="200" x2="40" y2="30" stroke="#94a3b8" strokeWidth="2" markerEnd="url(#arrow)"/>
+      <text x="40" y="20" className="text-[12px] fill-slate-600 font-bold">Real GDP</text>
+      <text x="350" y="218" className="text-[12px] fill-slate-600 font-bold">Time</text>
+      
+      {/* Trend line */}
+      <line x1="40" y1="180" x2="370" y2="50" stroke="#94a3b8" strokeWidth="2" strokeDasharray="5,5"/>
+      <text x="260" y="60" className="text-[11px] fill-slate-500 font-bold bg-white px-1">Trend (Potential)</text>
+      
+      {/* Sine Wave (Business Cycle) */}
+      <path d="M 40 180 C 60 120, 90 70, 120 70 C 160 70, 180 180, 220 180 C 260 180, 280 40, 320 40 C 350 40, 370 70, 380 90" fill="transparent" stroke="#3b82f6" strokeWidth="4" strokeLinecap="round"/>
+      
+      {/* Labels */}
+      <circle cx="120" cy="70" r="5" fill="#ef4444" stroke="#fff" strokeWidth="2" />
+      <text x="110" y="55" className="text-[12px] font-bold fill-red-600">Peak</text>
+      
+      <circle cx="220" cy="180" r="5" fill="#10b981" stroke="#fff" strokeWidth="2" />
+      <text x="210" y="195" className="text-[12px] font-bold fill-emerald-600">Trough</text>
+      
+      <text x="120" y="130" className="text-[11px] font-bold fill-rose-500">Recession</text>
+      <text x="235" y="125" className="text-[11px] font-bold fill-emerald-600">Expansion</text>
+    </svg>
+    <p className="text-sm text-center text-slate-600 mt-4 font-medium bg-slate-50 p-3 rounded-lg border border-slate-100">Actual GDP fluctuates around the long-term trend, creating output gaps.</p>
+  </div>
+);
+
+const ChartProductionFunction = () => (
+  <div className="w-full max-w-md mx-auto my-6 p-5 bg-white border border-slate-200 rounded-2xl shadow-sm">
+    <h4 className="text-center font-extrabold text-slate-800 mb-4 text-lg">Aggregate Production Function</h4>
+    <svg viewBox="0 0 400 240" className="w-full h-auto overflow-visible">
+      <defs>
+        <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#94a3b8" />
+        </marker>
+      </defs>
+
+      {/* Axes */}
+      <line x1="40" y1="200" x2="380" y2="200" stroke="#94a3b8" strokeWidth="2" markerEnd="url(#arrow)"/>
+      <line x1="40" y1="200" x2="40" y2="30" stroke="#94a3b8" strokeWidth="2" markerEnd="url(#arrow)"/>
+      <text x="40" y="20" className="text-[12px] fill-slate-600 font-bold">Real GDP per Worker</text>
+      <text x="210" y="218" className="text-[12px] fill-slate-600 font-bold">Physical Capital per Worker</text>
+      
+      {/* Production Curve (Exact Bezier for diminishing returns) */}
+      <path d="M 40 200 Q 100 80 380 50" fill="transparent" stroke="#10b981" strokeWidth="4" strokeLinecap="round"/>
+      
+      {/* Mathematical Points A and B on the curve */}
+      <line x1="120" y1="200" x2="120" y2="120" stroke="#94a3b8" strokeWidth="1.5" strokeDasharray="4,4"/>
+      <line x1="40" y1="120" x2="120" y2="120" stroke="#94a3b8" strokeWidth="1.5" strokeDasharray="4,4"/>
+      <circle cx="120" cy="120" r="5" fill="#3b82f6" stroke="#fff" strokeWidth="2"/>
+      <text x="110" y="110" className="text-[13px] font-black fill-slate-800">A</text>
+      
+      <line x1="240" y1="200" x2="240" y2="74" stroke="#94a3b8" strokeWidth="1.5" strokeDasharray="4,4"/>
+      <line x1="40" y1="74" x2="240" y2="74" stroke="#94a3b8" strokeWidth="1.5" strokeDasharray="4,4"/>
+      <circle cx="240" cy="74" r="5" fill="#3b82f6" stroke="#fff" strokeWidth="2"/>
+      <text x="230" y="64" className="text-[13px] font-black fill-slate-800">B</text>
+      
+      {/* Brackets to show diminishing returns */}
+      <text x="140" y="85" className="text-[11px] font-bold fill-emerald-600">Diminishing Returns</text>
+    </svg>
+    <p className="text-sm text-center text-slate-600 mt-4 font-medium bg-slate-50 p-3 rounded-lg border border-slate-100">Adding equal increments of physical capital leads to smaller and smaller increases in output.</p>
+  </div>
+);
+
+const ChartADAS = () => (
+  <div className="w-full max-w-md mx-auto my-6 p-5 bg-white border border-slate-200 rounded-2xl shadow-sm">
+    <h4 className="text-center font-extrabold text-slate-800 mb-4 text-lg">The AD-AS Model</h4>
+    <svg viewBox="0 0 400 240" className="w-full h-auto overflow-visible">
+      <defs>
+        <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#94a3b8" />
+        </marker>
+      </defs>
+
+      {/* Axes */}
+      <line x1="40" y1="200" x2="380" y2="200" stroke="#94a3b8" strokeWidth="2" markerEnd="url(#arrow)"/>
+      <line x1="40" y1="200" x2="40" y2="30" stroke="#94a3b8" strokeWidth="2" markerEnd="url(#arrow)"/>
+      <text x="40" y="20" className="text-[12px] fill-slate-600 font-bold">Aggregate Price Level</text>
+      <text x="310" y="218" className="text-[12px] fill-slate-600 font-bold">Real GDP</text>
+      
+      {/* LRAS (x=160) */}
+      <line x1="160" y1="30" x2="160" y2="200" stroke="#f59e0b" strokeWidth="3"/>
+      <text x="148" y="20" className="text-[12px] font-bold fill-amber-600">LRAS</text>
+      <text x="155" y="215" className="text-[11px] font-bold fill-amber-600">Yp</text>
+      
+      {/* SRAS (y = 280 - x) */}
+      <line x1="60" y1="220" x2="260" y2="20" stroke="#ef4444" strokeWidth="3"/>
+      <text x="265" y="25" className="text-[12px] font-bold fill-red-500">SRAS</text>
+      
+      {/* AD (y = x - 40) */}
+      <line x1="80" y1="40" x2="240" y2="200" stroke="#3b82f6" strokeWidth="3"/>
+      <text x="245" y="205" className="text-[12px] font-bold fill-blue-600">AD</text>
+      
+      {/* Perfect Intersection E at (160, 120) */}
+      <line x1="40" y1="120" x2="160" y2="120" stroke="#94a3b8" strokeWidth="1.5" strokeDasharray="4,4"/>
+      <circle cx="160" cy="120" r="5" fill="#1e293b" stroke="#fff" strokeWidth="2"/>
+      <text x="135" y="115" className="text-[13px] font-black fill-slate-800">E</text>
+      <text x="20" y="125" className="text-[11px] font-bold fill-slate-700">P*</text>
+    </svg>
+    <p className="text-sm text-center text-slate-600 mt-4 font-medium bg-slate-50 p-3 rounded-lg border border-slate-100">Long-run equilibrium occurs where AD, SRAS, and LRAS mathematically intersect at one point.</p>
+  </div>
+);
+
+const ChartADShift = () => (
+  <div className="w-full max-w-md mx-auto my-6 p-5 bg-white border border-slate-200 rounded-2xl shadow-sm">
+    <h4 className="text-center font-extrabold text-slate-800 mb-4 text-lg">Closing a Recessionary Gap</h4>
+    <svg viewBox="0 0 400 240" className="w-full h-auto overflow-visible">
+      <defs>
+        <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#94a3b8" />
+        </marker>
+        <marker id="shiftArrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#2563eb" />
+        </marker>
+      </defs>
+
+      {/* Axes */}
+      <line x1="40" y1="200" x2="380" y2="200" stroke="#94a3b8" strokeWidth="2" markerEnd="url(#arrow)"/>
+      <line x1="40" y1="200" x2="40" y2="30" stroke="#94a3b8" strokeWidth="2" markerEnd="url(#arrow)"/>
+      <text x="40" y="20" className="text-[12px] fill-slate-600 font-bold">Aggregate Price Level</text>
+      <text x="310" y="218" className="text-[12px] fill-slate-600 font-bold">Real GDP</text>
+      
+      {/* LRAS (x=180) */}
+      <line x1="180" y1="30" x2="180" y2="200" stroke="#f59e0b" strokeWidth="3"/>
+      <text x="168" y="20" className="text-[12px] font-bold fill-amber-600">LRAS</text>
+      
+      {/* SRAS (y = 280 - x) */}
+      <line x1="60" y1="220" x2="260" y2="20" stroke="#ef4444" strokeWidth="3"/>
+      <text x="265" y="25" className="text-[12px] font-bold fill-red-500">SRAS</text>
+      
+      {/* AD 1 (y = x - 40) */}
+      <line x1="80" y1="40" x2="240" y2="200" stroke="#93c5fd" strokeWidth="3"/>
+      <text x="75" y="35" className="text-[12px] font-bold fill-blue-400">AD1</text>
+      
+      {/* AD 2 (y = x - 80) */}
+      <line x1="100" y1="20" x2="260" y2="180" stroke="#2563eb" strokeWidth="3"/>
+      <text x="265" y="185" className="text-[12px] font-bold fill-blue-600">AD2</text>
+      
+      {/* Shift Arrow */}
+      <line x1="110" y1="120" x2="145" y2="120" stroke="#2563eb" strokeWidth="2.5" markerEnd="url(#shiftArrow)"/>
+
+      {/* Equilibrium 1: (160, 120) */}
+      <line x1="160" y1="200" x2="160" y2="120" stroke="#94a3b8" strokeWidth="1.5" strokeDasharray="4,4"/>
+      <circle cx="160" cy="120" r="5" fill="#1e293b" stroke="#fff" strokeWidth="2"/>
+      <text x="165" y="135" className="text-[12px] font-black fill-slate-700">E1</text>
+
+      {/* Equilibrium 2: (180, 100) -> Lands perfectly on LRAS! */}
+      <line x1="180" y1="200" x2="180" y2="100" stroke="#94a3b8" strokeWidth="1.5" strokeDasharray="4,4"/>
+      <circle cx="180" cy="100" r="5" fill="#1e293b" stroke="#fff" strokeWidth="2"/>
+      <text x="185" y="95" className="text-[12px] font-black fill-slate-700">E2</text>
+
+    </svg>
+    <p className="text-sm text-center text-slate-600 mt-4 font-medium bg-slate-50 p-3 rounded-lg border border-slate-100">Expansionary Fiscal Policy shifts AD to the right, landing exactly on Potential Output (LRAS).</p>
+  </div>
+);
+
+const ChartMoneyMarket = () => (
+  <div className="w-full max-w-md mx-auto my-6 p-5 bg-white border border-slate-200 rounded-2xl shadow-sm">
+    <h4 className="text-center font-extrabold text-slate-800 mb-4 text-lg">The Money Market</h4>
+    <svg viewBox="0 0 400 240" className="w-full h-auto overflow-visible">
+      <defs>
+        <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#94a3b8" />
+        </marker>
+      </defs>
+
+      {/* Axes */}
+      <line x1="40" y1="200" x2="380" y2="200" stroke="#94a3b8" strokeWidth="2" markerEnd="url(#arrow)"/>
+      <line x1="40" y1="200" x2="40" y2="30" stroke="#94a3b8" strokeWidth="2" markerEnd="url(#arrow)"/>
+      <text x="40" y="20" className="text-[12px] fill-slate-600 font-bold">Interest Rate (r)</text>
+      <text x="270" y="218" className="text-[12px] fill-slate-600 font-bold">Quantity of Money</text>
+      
+      {/* Money Supply (Vertical at 160) */}
+      <line x1="160" y1="40" x2="160" y2="200" stroke="#f59e0b" strokeWidth="4"/>
+      <text x="148" y="30" className="text-[12px] font-bold fill-amber-600">MS</text>
+      
+      {/* Money Demand (y = x - 20) */}
+      <line x1="80" y1="60" x2="240" y2="220" stroke="#3b82f6" strokeWidth="3"/>
+      <text x="245" y="225" className="text-[12px] font-bold fill-blue-600">MD</text>
+      
+      {/* Equilibrium Point (160, 140) */}
+      <line x1="40" y1="140" x2="160" y2="140" stroke="#94a3b8" strokeWidth="1.5" strokeDasharray="4,4"/>
+      <circle cx="160" cy="140" r="6" fill="#1e293b" stroke="#fff" strokeWidth="2"/>
+      <text x="20" y="145" className="text-[12px] font-bold fill-slate-700">r*</text>
+    </svg>
+    <p className="text-sm text-center text-slate-600 mt-4 font-medium bg-slate-50 p-3 rounded-lg border border-slate-100">The Fed sets a vertical Money Supply (MS), determining the equilibrium interest rate.</p>
+  </div>
+);
+
+const ChartPhillipsCurve = () => (
+  <div className="w-full max-w-md mx-auto my-6 p-5 bg-white border border-slate-200 rounded-2xl shadow-sm">
+    <h4 className="text-center font-extrabold text-slate-800 mb-4 text-lg">The Phillips Curve</h4>
+    <svg viewBox="0 0 400 240" className="w-full h-auto overflow-visible">
+      <defs>
+        <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#94a3b8" />
+        </marker>
+      </defs>
+
+      {/* Axes */}
+      <line x1="40" y1="200" x2="380" y2="200" stroke="#94a3b8" strokeWidth="2" markerEnd="url(#arrow)"/>
+      <line x1="40" y1="200" x2="40" y2="30" stroke="#94a3b8" strokeWidth="2" markerEnd="url(#arrow)"/>
+      <text x="40" y="20" className="text-[12px] fill-slate-600 font-bold">Inflation Rate</text>
+      <text x="250" y="218" className="text-[12px] fill-slate-600 font-bold">Unemployment Rate</text>
+      
+      {/* LRPC (x=180) */}
+      <line x1="180" y1="40" x2="180" y2="200" stroke="#f59e0b" strokeWidth="3"/>
+      <text x="165" y="30" className="text-[12px] font-bold fill-amber-600">LRPC</text>
+      <text x="165" y="215" className="text-[11px] font-bold fill-amber-600">NAIRU</text>
+      
+      {/* SRPC (y = x - 60) */}
+      <line x1="80" y1="20" x2="260" y2="200" stroke="#ef4444" strokeWidth="3"/>
+      <text x="265" y="205" className="text-[12px] font-bold fill-red-500">SRPC</text>
+      
+      {/* Intersection (180, 120) */}
+      <line x1="40" y1="120" x2="180" y2="120" stroke="#94a3b8" strokeWidth="1.5" strokeDasharray="4,4"/>
+      <circle cx="180" cy="120" r="6" fill="#1e293b" stroke="#fff" strokeWidth="2"/>
+      <text x="190" y="115" className="text-[11px] font-bold fill-slate-700 bg-white px-1">Expected = Actual</text>
+    </svg>
+    <p className="text-sm text-center text-slate-600 mt-4 font-medium bg-slate-50 p-3 rounded-lg border border-slate-100">The short-run trade-off between inflation and unemployment vanishes in the long-run at the NAIRU.</p>
+  </div>
+);
+
+// Map chapter strings to specific graphics for the Crash Course
+const renderChapterGraphic = (chapterTitle) => {
+  if (chapterTitle.includes("Ch 21")) return <ChartBusinessCycle />;
+  if (chapterTitle.includes("Ch 24")) return <ChartProductionFunction />;
+  if (chapterTitle.includes("Ch 27")) return <ChartADAS />;
+  if (chapterTitle.includes("Ch 28")) return <ChartADShift />;
+  if (chapterTitle.includes("Ch 30")) return <ChartMoneyMarket />;
+  if (chapterTitle.includes("Ch 31")) return <ChartPhillipsCurve />;
+  return null;
+};
+
+// Map graphic IDs to components for the Flashcards & Test Mode
+const renderGraphic = (graphicId) => {
+  switch(graphicId) {
+    case 'BusinessCycle': return <ChartBusinessCycle />;
+    case 'ProductionFunction': return <ChartProductionFunction />;
+    case 'ADAS': return <ChartADAS />;
+    case 'ADShift': return <ChartADShift />;
+    case 'MoneyMarket': return <ChartMoneyMarket />;
+    case 'PhillipsCurve': return <ChartPhillipsCurve />;
+    default: return null;
+  }
+};
+
+// --------------------------------------------------------------------------
+// DATA
+// --------------------------------------------------------------------------
+
 const flashcardsData = [
-  { id: 'f1', chapter: "Ch 21: The Big Picture", question: "What is the Business Cycle?", answer: "The short-run alternation between economic downturns (recessions/contractions) and economic upturns (expansions/recoveries). Peaks and troughs mark the turning points." },
+  { id: 'f1', chapter: "Ch 21: The Big Picture", graphic: "BusinessCycle", question: "What is the Business Cycle?", answer: "The short-run alternation between economic downturns (recessions/contractions) and economic upturns (expansions/recoveries). Peaks and troughs mark the turning points." },
   { id: 'f2', chapter: "Ch 21: The Big Picture", question: "What is the Paradox of Thrift?", answer: "When families/businesses worry about economic hard times, they cut spending. This reduction in spending depresses the economy, potentially leaving them worse off than if they hadn't tried to act responsibly." },
   { id: 'f3', chapter: "Ch 22: GDP and CPI", question: "What is included in GDP?", answer: "Only domestically produced FINAL goods and services. It excludes intermediate goods, used goods, financial assets (stocks/bonds), and goods produced outside the country." },
   { id: 'f4', chapter: "Ch 22: GDP and CPI", question: "What is the difference between Nominal and Real GDP?", answer: "Nominal GDP calculates the value of goods using current year prices.\nReal GDP calculates the value of goods using the prices of a selected base year (adjusting for inflation)." },
   { id: 'f5', chapter: "Ch 23: Unemployment and Inflation", question: "What are the three types of unemployment?", answer: "1. Frictional: Time spent in job search.\n2. Structural: More job seekers than jobs available at the current wage (caused by min wage, unions, efficiency wages).\n3. Cyclical: Deviation from the natural rate due to the business cycle.\n\nNatural Rate = Frictional + Structural" },
   { id: 'f6', chapter: "Ch 23: Unemployment and Inflation", question: "What are Shoe-leather and Menu costs of inflation?", answer: "Shoe-leather costs: Increased costs of transactions (wasting time running to the bank to avoid holding depreciating cash).\n\nMenu costs: The real cost of physically changing listed prices." },
-  { id: 'f7', chapter: "Ch 24: Long-Run Economic Growth", question: "What drives long-run productivity growth?", answer: "1. Physical capital (machines, buildings)\n2. Human capital (education, knowledge)\n3. Technological progress (Total Factor Productivity / TFP)." },
+  { id: 'f7', chapter: "Ch 24: Long-Run Economic Growth", graphic: "ProductionFunction", question: "What drives long-run productivity growth?", answer: "1. Physical capital (machines, buildings)\n2. Human capital (education, knowledge)\n3. Technological progress (Total Factor Productivity / TFP)." },
   { id: 'f8', chapter: "Ch 24: Long-Run Economic Growth", question: "What is the Convergence Hypothesis?", answer: "Differences in real GDP per capita among countries tend to narrow over time, as poorer countries grow faster than richer ones to catch up." },
   { id: 'f9', chapter: "Ch 25: Savings & Financial System", question: "What are the three main tasks of a financial system?", answer: "1. Reducing transaction costs\n2. Reducing financial risk (via diversification)\n3. Providing liquidity" },
   { id: 'f10', chapter: "Ch 25: Savings & Financial System", question: "What is the Fisher Effect?", answer: "An increase in expected future inflation drives up the nominal interest rate exactly, leaving the expected real interest rate unchanged." },
   { id: 'f11', chapter: "Ch 26: Income and Expenditure", question: "What is Unplanned Inventory Investment?", answer: "Unplanned changes in inventories that occur when actual sales are more or less than businesses expected. It acts as a leading economic indicator. (When positive, GDP falls; when negative, GDP rises)." },
-  { id: 'f12', chapter: "Ch 27: AD and AS", question: "Why does the Aggregate Demand (AD) curve slope downward?", answer: "1. The Wealth Effect: Higher price level reduces purchasing power of wealth, reducing consumption.\n2. The Interest Rate Effect: Higher price level increases money demand, raising interest rates, which reduces investment." },
-  { id: 'f13', chapter: "Ch 27: AD and AS", question: "What causes shifts in the SRAS vs. LRAS curves?", answer: "SRAS shifts due to changes in commodity prices, nominal wages, or productivity.\n\nLRAS represents potential output if all prices/wages were fully flexible. It shifts due to changes in resources (Capital, Labor) or Technology (TFP)." },
-  { id: 'f14', chapter: "Ch 28: Fiscal Policy", question: "What is Expansionary vs. Contractionary Fiscal Policy?", answer: "Expansionary (shifts AD right): Increase gov purchases, cut taxes, increase gov transfers.\n\nContractionary (shifts AD left): Decrease gov purchases, raise taxes, decrease gov transfers." },
+  { id: 'f12', chapter: "Ch 27: AD and AS", graphic: "ADAS", question: "Why does the Aggregate Demand (AD) curve slope downward?", answer: "1. The Wealth Effect: Higher price level reduces purchasing power of wealth, reducing consumption.\n2. The Interest Rate Effect: Higher price level increases money demand, raising interest rates, which reduces investment." },
+  { id: 'f13', chapter: "Ch 27: AD and AS", graphic: "ADAS", question: "What causes shifts in the SRAS vs. LRAS curves?", answer: "SRAS shifts due to changes in commodity prices, nominal wages, or productivity.\n\nLRAS represents potential output if all prices/wages were fully flexible. It shifts due to changes in resources (Capital, Labor) or Technology (TFP)." },
+  { id: 'f14', chapter: "Ch 28: Fiscal Policy", graphic: "ADShift", question: "What is Expansionary vs. Contractionary Fiscal Policy?", answer: "Expansionary (shifts AD right): Increase gov purchases, cut taxes, increase gov transfers.\n\nContractionary (shifts AD left): Decrease gov purchases, raise taxes, decrease gov transfers." },
   { id: 'f15', chapter: "Ch 28: Fiscal Policy", question: "What are Automatic Stabilizers?", answer: "Government spending and taxation rules that automatically become expansionary in recessions and contractionary in expansions (e.g., progressive income taxes, unemployment insurance) without deliberate policy action." },
   { id: 'f16', chapter: "Ch 29: Money, Banking, & Fed", question: "What are the roles and types of money?", answer: "Roles: Medium of exchange, Store of value, Unit of account.\n\nTypes: Commodity money (gold), Commodity-backed money, and Fiat money (value derives entirely from official government status)." },
-  { id: 'f17', chapter: "Ch 29: Money, Banking, & Fed", question: "What are the Fed's primary tools?", answer: "1. Open-market operations (buying T-bills increases money supply/reserves; selling decreases it).\n2. Discount window lending.\n3. Reserve requirements." },
-  { id: 'f18', chapter: "Ch 30: Monetary Policy", question: "What shifts the Money Demand curve?", answer: "1. Changes in aggregate price level\n2. Changes in real GDP\n3. Changes in technology (e.g., credit cards)\n4. Changes in institutions" },
+  { id: 'f17', chapter: "Ch 29: Money, Banking, & Fed", graphic: "MoneyMarket", question: "What are the Fed's primary tools?", answer: "1. Open-market operations (buying T-bills increases money supply/reserves; selling decreases it).\n2. Discount window lending.\n3. Reserve requirements." },
+  { id: 'f18', chapter: "Ch 30: Monetary Policy", graphic: "MoneyMarket", question: "What shifts the Money Demand curve?", answer: "1. Changes in aggregate price level\n2. Changes in real GDP\n3. Changes in technology (e.g., credit cards)\n4. Changes in institutions" },
   { id: 'f19', chapter: "Ch 30: Monetary Policy", question: "What is Monetary Neutrality?", answer: "The concept that in the long run, changes in the money supply affect the aggregate price level proportionately, but do not affect real GDP or the interest rate." },
-  { id: 'f20', chapter: "Ch 31: Inflation & Deflation", question: "What is the NAIRU?", answer: "Non-Accelerating Inflation Rate of Unemployment: The unemployment rate at which inflation does not change over time. It represents the Long-Run Phillips Curve (which is vertical)." },
+  { id: 'f20', chapter: "Ch 31: Inflation & Deflation", graphic: "PhillipsCurve", question: "What is the NAIRU?", answer: "Non-Accelerating Inflation Rate of Unemployment: The unemployment rate at which inflation does not change over time. It represents the Long-Run Phillips Curve (which is vertical)." },
   { id: 'f21', chapter: "Ch 31: Inflation & Deflation", question: "What is Debt Deflation?", answer: "The reduction in aggregate demand arising from the increase in the real burden of outstanding debt caused by deflation. (Borrowers lose, cutting spending; lenders gain but don't increase spending)." },
   { id: 'f22', chapter: "Ch 32: Events and Ideas", question: "What was Keynes's core argument?", answer: "Economic slumps are caused by inadequate spending. He proved the short-run matters, arguing for macroeconomic policy activism (fiscal and monetary) to smooth the business cycle." },
   { id: 'f23', chapter: "Ch 33: International Macroeconomics", question: "What is the 'Impossible Trinity' (Trilemma)?", answer: "A country cannot simultaneously have: \n1. Free movement of capital\n2. An independent monetary policy\n3. A fixed exchange rate." }
 ];
 
-// --- DATA: PRACTICE LAB (COMPUTATIONS) ---
 const practiceData = [
   { id: 'p1', chapter: "Ch 25: Savings & Financial System", topic: "COMP 1 & 9: Closed Economy Savings Identity", question: "In a closed economy: GDP = $1,000M, Consumer Spending (C) = $850M, Taxes (T) = $50M, Government Purchases (G) = $100M. \n\nCalculate Investment Spending (I), Private Savings, and the Budget Balance.", solution: "1. Investment Spending (I) = GDP - C - G = 1,000 - 850 - 100 = $50M\n2. Private Savings = GDP - T - C = 1,000 - 50 - 850 = $100M\n3. Budget Balance = T - G = 50 - 100 = -$50M (Deficit)\n(National Savings = Private + Budget = 100 - 50 = $50M = I)" },
   { id: 'p2', chapter: "Ch 25: Savings & Financial System", topic: "COMP 1 & 9: Open Economy Savings Identity", question: "In an open economy:\nExports (X) = $125M\nImports (IM) = $80M\nBudget Balance = -$200M (Deficit)\nInvestment Spending (I) = $350M\n\nCalculate Private Savings.", solution: "Identity: I = Private Savings + Budget Balance + Net Capital Inflow (IM - X)\n\n350 = Private Savings + (-200) + (80 - 125)\n350 = Private Savings - 200 - 45\n350 = Private Savings - 245\n\nPrivate Savings = 350 + 245 = $595M" },
@@ -54,7 +317,6 @@ const practiceData = [
 
 // --- COMPONENTS ---
 
-// Confetti Component for Celebrations
 const Confetti = () => {
   return (
     <div className="fixed inset-0 pointer-events-none z-50 overflow-hidden">
@@ -84,9 +346,9 @@ export default function App() {
   const [activeTab, setActiveTab] = useState('crashcourse'); // 'crashcourse', 'flashcards', 'practice', 'test'
   const [selectedChapter, setSelectedChapter] = useState("All Chapters");
   const [showConfetti, setShowConfetti] = useState(false);
-  const [showNeedsReviewOnly, setShowNeedsReviewOnly] = useState(false); // New Toggle for Needs Review Filter
+  const [showNeedsReviewOnly, setShowNeedsReviewOnly] = useState(false);
 
-  // Progress Tracking State (Persisted in localStorage)
+  // Progress Tracking State
   const [progress, setProgress] = useState(() => {
     try {
       const saved = localStorage.getItem('macroProgress');
@@ -108,7 +370,6 @@ export default function App() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isFlipped, setIsFlipped] = useState(false);
   
-  // Filter logic combining Chapter AND "Needs Review"
   const filteredCards = useMemo(() => {
     let subset = flashcardsData;
     if (selectedChapter !== "All Chapters") {
@@ -136,11 +397,10 @@ export default function App() {
   }, [selectedChapter, showNeedsReviewOnly, progress]);
 
   // Test Mode State
-  const [testState, setTestState] = useState('idle'); // idle, running, results
+  const [testState, setTestState] = useState('idle'); 
   const [testQueue, setTestQueue] = useState([]);
   const [testScore, setTestScore] = useState({ correct: 0, total: 0 });
 
-  // Reset indices when changing filters
   useEffect(() => {
     setCurrentIndex(0);
     setPracticeIndex(0);
@@ -150,14 +410,12 @@ export default function App() {
 
   const chapters = ["All Chapters", ...new Set(flashcardsData.map(card => card.chapter))];
 
-  // Nav Handlers
   const handleNextCard = () => { setIsFlipped(false); setTimeout(() => setCurrentIndex((prev) => (prev + 1) % filteredCards.length), 150); };
   const handlePrevCard = () => { setIsFlipped(false); setTimeout(() => setCurrentIndex((prev) => (prev - 1 + filteredCards.length) % filteredCards.length), 150); };
   
   const handleNextPractice = () => { setShowSolution(false); setTimeout(() => setPracticeIndex((prev) => (prev + 1) % filteredPractice.length), 150); };
   const handlePrevPractice = () => { setShowSolution(false); setTimeout(() => setPracticeIndex((prev) => (prev - 1 + filteredPractice.length) % filteredPractice.length), 150); };
 
-  // Calculate Mastery
   const calculateMastery = () => {
     let totalItems = flashcardsData.length + practiceData.length;
     let masteredCount = 0;
@@ -166,15 +424,12 @@ export default function App() {
     return totalItems === 0 ? 0 : Math.round((masteredCount / totalItems) * 100);
   };
 
-  // Trigger Confetti Effect
   const triggerConfetti = () => {
     setShowConfetti(true);
     setTimeout(() => setShowConfetti(false), 4000);
   };
 
-  // Test Mode Logic
   const startTest = () => {
-    // Pick 5 random cards and 5 random practices from the current filter
     let cardPool = selectedChapter === "All Chapters" ? flashcardsData : flashcardsData.filter(c => c.chapter === selectedChapter);
     let practicePool = selectedChapter === "All Chapters" ? practiceData : practiceData.filter(p => p.chapter.includes(selectedChapter));
     
@@ -187,7 +442,7 @@ export default function App() {
     const shuffledPractice = [...practicePool].sort(() => 0.5 - Math.random()).slice(0, 5).map(p => ({...p, type: 'practice'}));
     const combined = [...shuffledCards, ...shuffledPractice].sort(() => 0.5 - Math.random());
     
-    if (combined.length === 0) return; // Prevent empty test
+    if (combined.length === 0) return;
 
     setTestQueue(combined);
     setCurrentIndex(0);
@@ -202,7 +457,7 @@ export default function App() {
     if (currentIndex + 1 >= testQueue.length) {
       setTestState('results');
       if ((testScore.correct + (isCorrect ? 1 : 0)) / testQueue.length >= 0.8) {
-        triggerConfetti(); // Confetti for > 80%
+        triggerConfetti();
       }
     } else {
       setIsFlipped(false);
@@ -279,7 +534,7 @@ export default function App() {
           <div className="w-full animate-in fade-in duration-500 flex flex-col gap-6">
             <div className="bg-white rounded-2xl shadow-sm p-8 text-center border border-slate-200">
               <h2 className="text-3xl font-bold text-slate-800 mb-2">Macroeconomics Crash Course</h2>
-              <p className="text-slate-500 text-lg">Scroll through to quickly absorb the core concepts before testing yourself.</p>
+              <p className="text-slate-500 text-lg">Scroll through to quickly absorb the core concepts and graphs before testing yourself.</p>
             </div>
 
             {chapters.filter(c => c !== "All Chapters").map(chap => (
@@ -287,6 +542,10 @@ export default function App() {
                 <div className="bg-blue-50 border-b border-blue-100 p-4 px-6">
                   <h3 className="font-bold text-blue-900 text-lg">{chap}</h3>
                 </div>
+                
+                {/* Dynamically inject SVG Graphics for specific chapters */}
+                {renderChapterGraphic(chap)}
+
                 <div className="divide-y divide-slate-100">
                   {flashcardsData.filter(c => c.chapter === chap).map((card, idx) => (
                     <div key={idx} className="p-6 flex flex-col md:flex-row gap-4 hover:bg-slate-50 transition-colors">
@@ -310,7 +569,7 @@ export default function App() {
                   <span className="text-sm font-bold bg-blue-100 text-blue-800 py-1 px-4 rounded-full">Card {currentIndex + 1} of {filteredCards.length}</span>
                 </div>
 
-                <div className="w-full h-80 md:h-96 relative cursor-pointer [perspective:1000px] group" onClick={() => setIsFlipped(!isFlipped)}>
+                <div className="w-full min-h-[28rem] relative cursor-pointer [perspective:1000px] group" onClick={() => setIsFlipped(!isFlipped)}>
                   <div className={`w-full h-full transition-transform duration-500 [transform-style:preserve-3d] shadow-xl rounded-2xl relative ${isFlipped ? '[transform:rotateY(180deg)]' : ''}`}>
                     {/* Front */}
                     <div className="absolute w-full h-full bg-white rounded-2xl p-8 flex flex-col items-center justify-center [backface-visibility:hidden] border-t-4 border-blue-500">
@@ -319,9 +578,18 @@ export default function App() {
                       <p className="absolute bottom-6 text-slate-400 text-sm flex items-center gap-1 opacity-70 group-hover:opacity-100 transition-opacity font-medium"><RotateCcw size={14}/> Click to flip</p>
                     </div>
                     {/* Back */}
-                    <div className="absolute w-full h-full bg-blue-50 rounded-2xl p-8 flex flex-col items-center justify-center [backface-visibility:hidden] [transform:rotateY(180deg)] border-t-4 border-green-500 overflow-y-auto">
-                      <span className="text-green-600 font-bold mb-4 uppercase tracking-widest text-xs border border-green-200 px-3 py-1 rounded-full shrink-0">Answer</span>
-                      <p className="text-lg md:text-xl text-center leading-relaxed whitespace-pre-line text-slate-700">{filteredCards[currentIndex].answer}</p>
+                    <div className="absolute w-full h-full bg-blue-50 rounded-2xl p-6 flex flex-col items-center justify-start [backface-visibility:hidden] [transform:rotateY(180deg)] border-t-4 border-green-500 overflow-y-auto">
+                      <span className="text-green-600 font-bold mb-2 uppercase tracking-widest text-xs border border-green-200 px-3 py-1 rounded-full shrink-0">Answer</span>
+                      <p className="text-base md:text-lg text-center leading-relaxed whitespace-pre-line text-slate-700 mb-4">
+                        {filteredCards[currentIndex].answer}
+                      </p>
+                      
+                      {/* Inject Visual Graphic into Flashcard if it exists */}
+                      {filteredCards[currentIndex].graphic && (
+                        <div className="w-full max-w-[320px] shrink-0 mt-auto bg-white rounded-xl shadow-sm p-2 border border-slate-200">
+                          {renderGraphic(filteredCards[currentIndex].graphic)}
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -432,7 +700,7 @@ export default function App() {
                   </span>
                 </div>
 
-                <div className="w-full min-h-[24rem] relative mb-8">
+                <div className="w-full min-h-[30rem] relative mb-8">
                   <div className={`w-full h-full bg-white shadow-xl rounded-2xl p-8 flex flex-col border-t-4 ${testQueue[currentIndex].type === 'card' ? 'border-blue-500' : 'border-indigo-500'}`}>
                     
                     <h2 className="text-2xl font-semibold leading-relaxed mb-6">
@@ -451,6 +719,13 @@ export default function App() {
                          <p className="text-lg whitespace-pre-line text-slate-700 font-mono bg-slate-50 p-4 rounded-lg mt-2">
                            {testQueue[currentIndex].answer || testQueue[currentIndex].solution}
                          </p>
+
+                         {/* Show Graphic if it's a flashcard with an assigned graphic */}
+                         {testQueue[currentIndex].type === 'card' && testQueue[currentIndex].graphic && (
+                            <div className="w-full max-w-[280px] mx-auto mt-4 shrink-0 bg-white rounded-xl shadow-sm border border-slate-200 p-2">
+                              {renderGraphic(testQueue[currentIndex].graphic)}
+                            </div>
+                         )}
 
                          <div className="mt-8 flex flex-col gap-3">
                            <p className="text-center font-bold text-slate-500">Did you get it right?</p>
