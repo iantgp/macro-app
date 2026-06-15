@@ -3,11 +3,12 @@ import { ChevronLeft, ChevronRight, RotateCcw, BookOpen, Calculator, BrainCircui
 
 // --------------------------------------------------------------------------
 // 100% MATHEMATICALLY ACCURATE MACROECONOMIC SVG GRAPHICS
+// Horizontal Labels + Pixel-Perfect Intersections
 // --------------------------------------------------------------------------
 
 const ChartBusinessCycle = () => (
   <div className="w-full max-w-md mx-auto my-6 p-5 bg-white border border-slate-200 rounded-2xl shadow-sm">
-    <h4 className="text-center font-extrabold text-slate-800 mb-4 text-lg">The Business Cycle</h4>
+    <h4 className="text-center font-extrabold text-slate-800 mb-6 text-lg">The Business Cycle</h4>
     <svg viewBox="0 0 400 240" className="w-full h-auto overflow-visible">
       <defs>
         <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
@@ -15,36 +16,36 @@ const ChartBusinessCycle = () => (
         </marker>
       </defs>
       
-      {/* Axes */}
+      {/* Axes with horizontal labels */}
       <line x1="40" y1="200" x2="380" y2="200" stroke="#94a3b8" strokeWidth="2" markerEnd="url(#arrow)"/>
       <line x1="40" y1="200" x2="40" y2="30" stroke="#94a3b8" strokeWidth="2" markerEnd="url(#arrow)"/>
-      <text x="40" y="20" className="text-[12px] fill-slate-600 font-bold">Real GDP</text>
-      <text x="350" y="218" className="text-[12px] fill-slate-600 font-bold">Time</text>
+      <text x="40" y="15" className="text-[12px] fill-slate-600 font-bold">Real GDP</text>
+      <text x="350" y="225" className="text-[12px] fill-slate-600 font-bold">Time</text>
       
       {/* Trend line */}
-      <line x1="40" y1="180" x2="370" y2="50" stroke="#94a3b8" strokeWidth="2" strokeDasharray="5,5"/>
-      <text x="260" y="60" className="text-[11px] fill-slate-500 font-bold bg-white px-1">Trend (Potential)</text>
+      <line x1="40" y1="180" x2="360" y2="60" stroke="#94a3b8" strokeWidth="2" strokeDasharray="5,5"/>
+      <text x="260" y="50" className="text-[11px] fill-slate-500 font-bold">Trend (Potential)</text>
       
       {/* Sine Wave (Business Cycle) */}
-      <path d="M 40 180 C 60 120, 90 70, 120 70 C 160 70, 180 180, 220 180 C 260 180, 280 40, 320 40 C 350 40, 370 70, 380 90" fill="transparent" stroke="#3b82f6" strokeWidth="4" strokeLinecap="round"/>
+      <path d="M 40 180 C 60 100, 80 40, 120 70 C 160 100, 180 200, 220 180 C 260 160, 300 20, 360 50" fill="transparent" stroke="#3b82f6" strokeWidth="3" strokeLinecap="round"/>
       
-      {/* Labels */}
-      <circle cx="120" cy="70" r="5" fill="#ef4444" stroke="#fff" strokeWidth="2" />
-      <text x="110" y="55" className="text-[12px] font-bold fill-red-600">Peak</text>
+      {/* Exact Points & Labels */}
+      <circle cx="100" cy="62" r="5" fill="#ef4444" stroke="#fff" strokeWidth="2" />
+      <text x="85" y="45" className="text-[12px] font-bold fill-red-600">Peak</text>
       
-      <circle cx="220" cy="180" r="5" fill="#10b981" stroke="#fff" strokeWidth="2" />
-      <text x="210" y="195" className="text-[12px] font-bold fill-emerald-600">Trough</text>
+      <circle cx="218" cy="180" r="5" fill="#10b981" stroke="#fff" strokeWidth="2" />
+      <text x="200" y="200" className="text-[12px] font-bold fill-emerald-600">Trough</text>
       
-      <text x="120" y="130" className="text-[11px] font-bold fill-rose-500">Recession</text>
-      <text x="235" y="125" className="text-[11px] font-bold fill-emerald-600">Expansion</text>
+      <text x="135" y="130" className="text-[11px] font-bold fill-rose-500 bg-white">Recession</text>
+      <text x="245" y="120" className="text-[11px] font-bold fill-emerald-600 bg-white">Expansion</text>
     </svg>
-    <p className="text-sm text-center text-slate-600 mt-4 font-medium bg-slate-50 p-3 rounded-lg border border-slate-100">Actual GDP fluctuates around the long-term trend, creating output gaps.</p>
+    <p className="text-sm text-center text-slate-600 mt-6 font-medium bg-slate-50 p-3 rounded-lg border border-slate-100">Actual GDP fluctuates around the long-term trend, creating output gaps.</p>
   </div>
 );
 
 const ChartProductionFunction = () => (
   <div className="w-full max-w-md mx-auto my-6 p-5 bg-white border border-slate-200 rounded-2xl shadow-sm">
-    <h4 className="text-center font-extrabold text-slate-800 mb-4 text-lg">Aggregate Production Function</h4>
+    <h4 className="text-center font-extrabold text-slate-800 mb-6 text-lg">Aggregate Production Function</h4>
     <svg viewBox="0 0 400 240" className="w-full h-auto overflow-visible">
       <defs>
         <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
@@ -52,36 +53,42 @@ const ChartProductionFunction = () => (
         </marker>
       </defs>
 
-      {/* Axes */}
+      {/* Axes with horizontal labels */}
       <line x1="40" y1="200" x2="380" y2="200" stroke="#94a3b8" strokeWidth="2" markerEnd="url(#arrow)"/>
       <line x1="40" y1="200" x2="40" y2="30" stroke="#94a3b8" strokeWidth="2" markerEnd="url(#arrow)"/>
-      <text x="40" y="20" className="text-[12px] fill-slate-600 font-bold">Real GDP per Worker</text>
-      <text x="210" y="218" className="text-[12px] fill-slate-600 font-bold">Physical Capital per Worker</text>
+      <text x="40" y="15" className="text-[12px] fill-slate-600 font-bold">Real GDP per Worker</text>
+      <text x="210" y="225" className="text-[12px] fill-slate-600 font-bold">Physical Capital per Worker</text>
       
-      {/* Production Curve (Exact Bezier for diminishing returns) */}
-      <path d="M 40 200 Q 100 80 380 50" fill="transparent" stroke="#10b981" strokeWidth="4" strokeLinecap="round"/>
+      {/* Production Curve */}
+      <path d="M 40 200 Q 120 60 360 50" fill="transparent" stroke="#10b981" strokeWidth="3" strokeLinecap="round"/>
       
-      {/* Mathematical Points A and B on the curve */}
-      <line x1="120" y1="200" x2="120" y2="120" stroke="#94a3b8" strokeWidth="1.5" strokeDasharray="4,4"/>
-      <line x1="40" y1="120" x2="120" y2="120" stroke="#94a3b8" strokeWidth="1.5" strokeDasharray="4,4"/>
-      <circle cx="120" cy="120" r="5" fill="#3b82f6" stroke="#fff" strokeWidth="2"/>
-      <text x="110" y="110" className="text-[13px] font-black fill-slate-800">A</text>
+      {/* Mathematical Points A and B precisely on the curve */}
+      <line x1="120" y1="200" x2="120" y2="123" stroke="#94a3b8" strokeWidth="1.5" strokeDasharray="4,4"/>
+      <line x1="40" y1="123" x2="120" y2="123" stroke="#94a3b8" strokeWidth="1.5" strokeDasharray="4,4"/>
+      <circle cx="120" cy="123" r="5" fill="#3b82f6" stroke="#fff" strokeWidth="2"/>
+      <text x="110" y="113" className="text-[13px] font-black fill-slate-800">A</text>
       
-      <line x1="240" y1="200" x2="240" y2="74" stroke="#94a3b8" strokeWidth="1.5" strokeDasharray="4,4"/>
-      <line x1="40" y1="74" x2="240" y2="74" stroke="#94a3b8" strokeWidth="1.5" strokeDasharray="4,4"/>
-      <circle cx="240" cy="74" r="5" fill="#3b82f6" stroke="#fff" strokeWidth="2"/>
-      <text x="230" y="64" className="text-[13px] font-black fill-slate-800">B</text>
+      <line x1="260" y1="200" x2="260" y2="73" stroke="#94a3b8" strokeWidth="1.5" strokeDasharray="4,4"/>
+      <line x1="40" y1="73" x2="260" y2="73" stroke="#94a3b8" strokeWidth="1.5" strokeDasharray="4,4"/>
+      <circle cx="260" cy="73" r="5" fill="#3b82f6" stroke="#fff" strokeWidth="2"/>
+      <text x="250" y="63" className="text-[13px] font-black fill-slate-800">B</text>
       
       {/* Brackets to show diminishing returns */}
       <text x="140" y="85" className="text-[11px] font-bold fill-emerald-600">Diminishing Returns</text>
+      
+      <path d="M 120 205 L 120 210 L 260 210 L 260 205" fill="none" stroke="#64748b" strokeWidth="1.5"/>
+      <text x="165" y="225" className="text-[10px] font-bold fill-slate-600">+ Capital</text>
+      
+      <path d="M 35 123 L 30 123 L 30 73 L 35 73" fill="none" stroke="#64748b" strokeWidth="1.5"/>
+      <text x="5" y="102" className="text-[10px] font-bold fill-slate-600">+ Output</text>
     </svg>
-    <p className="text-sm text-center text-slate-600 mt-4 font-medium bg-slate-50 p-3 rounded-lg border border-slate-100">Adding equal increments of physical capital leads to smaller and smaller increases in output.</p>
+    <p className="text-sm text-center text-slate-600 mt-6 font-medium bg-slate-50 p-3 rounded-lg border border-slate-100">Adding equal increments of physical capital leads to smaller and smaller increases in output.</p>
   </div>
 );
 
 const ChartADAS = () => (
   <div className="w-full max-w-md mx-auto my-6 p-5 bg-white border border-slate-200 rounded-2xl shadow-sm">
-    <h4 className="text-center font-extrabold text-slate-800 mb-4 text-lg">The AD-AS Model</h4>
+    <h4 className="text-center font-extrabold text-slate-800 mb-6 text-lg">The AD-AS Model</h4>
     <svg viewBox="0 0 400 240" className="w-full h-auto overflow-visible">
       <defs>
         <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
@@ -89,91 +96,91 @@ const ChartADAS = () => (
         </marker>
       </defs>
 
-      {/* Axes */}
+      {/* Axes with horizontal labels */}
       <line x1="40" y1="200" x2="380" y2="200" stroke="#94a3b8" strokeWidth="2" markerEnd="url(#arrow)"/>
       <line x1="40" y1="200" x2="40" y2="30" stroke="#94a3b8" strokeWidth="2" markerEnd="url(#arrow)"/>
-      <text x="40" y="20" className="text-[12px] fill-slate-600 font-bold">Aggregate Price Level</text>
-      <text x="310" y="218" className="text-[12px] fill-slate-600 font-bold">Real GDP</text>
+      <text x="40" y="15" className="text-[12px] fill-slate-600 font-bold">Aggregate Price Level</text>
+      <text x="310" y="225" className="text-[12px] fill-slate-600 font-bold">Real GDP</text>
       
-      {/* LRAS (x=160) */}
-      <line x1="160" y1="30" x2="160" y2="200" stroke="#f59e0b" strokeWidth="3"/>
-      <text x="148" y="20" className="text-[12px] font-bold fill-amber-600">LRAS</text>
-      <text x="155" y="215" className="text-[11px] font-bold fill-amber-600">Yp</text>
+      {/* LRAS (x=200) */}
+      <line x1="200" y1="40" x2="200" y2="200" stroke="#f59e0b" strokeWidth="3"/>
+      <text x="185" y="30" className="text-[12px] font-bold fill-amber-600">LRAS</text>
+      <text x="195" y="215" className="text-[11px] font-bold fill-amber-600">Yp</text>
       
-      {/* SRAS (y = 280 - x) */}
-      <line x1="60" y1="220" x2="260" y2="20" stroke="#ef4444" strokeWidth="3"/>
-      <text x="265" y="25" className="text-[12px] font-bold fill-red-500">SRAS</text>
+      {/* SRAS (Slope -0.5) */}
+      <line x1="80" y1="180" x2="320" y2="60" stroke="#ef4444" strokeWidth="3"/>
+      <text x="325" y="55" className="text-[12px] font-bold fill-red-500">SRAS</text>
       
-      {/* AD (y = x - 40) */}
-      <line x1="80" y1="40" x2="240" y2="200" stroke="#3b82f6" strokeWidth="3"/>
-      <text x="245" y="205" className="text-[12px] font-bold fill-blue-600">AD</text>
+      {/* AD (Slope 0.5) */}
+      <line x1="80" y1="60" x2="320" y2="180" stroke="#3b82f6" strokeWidth="3"/>
+      <text x="325" y="185" className="text-[12px] font-bold fill-blue-600">AD</text>
       
-      {/* Perfect Intersection E at (160, 120) */}
-      <line x1="40" y1="120" x2="160" y2="120" stroke="#94a3b8" strokeWidth="1.5" strokeDasharray="4,4"/>
-      <circle cx="160" cy="120" r="5" fill="#1e293b" stroke="#fff" strokeWidth="2"/>
-      <text x="135" y="115" className="text-[13px] font-black fill-slate-800">E</text>
+      {/* Perfect Intersection E at (200, 120) */}
+      <line x1="40" y1="120" x2="200" y2="120" stroke="#94a3b8" strokeWidth="1.5" strokeDasharray="4,4"/>
+      <circle cx="200" cy="120" r="5" fill="#1e293b" stroke="#fff" strokeWidth="2"/>
+      <text x="180" y="110" className="text-[13px] font-black fill-slate-800">E</text>
       <text x="20" y="125" className="text-[11px] font-bold fill-slate-700">P*</text>
     </svg>
-    <p className="text-sm text-center text-slate-600 mt-4 font-medium bg-slate-50 p-3 rounded-lg border border-slate-100">Long-run equilibrium occurs where AD, SRAS, and LRAS mathematically intersect at one point.</p>
+    <p className="text-sm text-center text-slate-600 mt-6 font-medium bg-slate-50 p-3 rounded-lg border border-slate-100">Long-run equilibrium occurs where AD, SRAS, and LRAS mathematically intersect at one point.</p>
   </div>
 );
 
 const ChartADShift = () => (
   <div className="w-full max-w-md mx-auto my-6 p-5 bg-white border border-slate-200 rounded-2xl shadow-sm">
-    <h4 className="text-center font-extrabold text-slate-800 mb-4 text-lg">Closing a Recessionary Gap</h4>
+    <h4 className="text-center font-extrabold text-slate-800 mb-6 text-lg">Closing a Recessionary Gap</h4>
     <svg viewBox="0 0 400 240" className="w-full h-auto overflow-visible">
       <defs>
         <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
           <path d="M 0 0 L 10 5 L 0 10 z" fill="#94a3b8" />
         </marker>
-        <marker id="shiftArrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
-          <path d="M 0 0 L 10 5 L 0 10 z" fill="#2563eb" />
+        <marker id="shiftArrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#3b82f6" />
         </marker>
       </defs>
 
-      {/* Axes */}
+      {/* Axes with horizontal labels */}
       <line x1="40" y1="200" x2="380" y2="200" stroke="#94a3b8" strokeWidth="2" markerEnd="url(#arrow)"/>
       <line x1="40" y1="200" x2="40" y2="30" stroke="#94a3b8" strokeWidth="2" markerEnd="url(#arrow)"/>
-      <text x="40" y="20" className="text-[12px] fill-slate-600 font-bold">Aggregate Price Level</text>
-      <text x="310" y="218" className="text-[12px] fill-slate-600 font-bold">Real GDP</text>
+      <text x="40" y="15" className="text-[12px] fill-slate-600 font-bold">Aggregate Price Level (P)</text>
+      <text x="310" y="225" className="text-[12px] fill-slate-600 font-bold">Real GDP (Y)</text>
       
-      {/* LRAS (x=180) */}
-      <line x1="180" y1="30" x2="180" y2="200" stroke="#f59e0b" strokeWidth="3"/>
-      <text x="168" y="20" className="text-[12px] font-bold fill-amber-600">LRAS</text>
+      {/* LRAS (x=260) */}
+      <line x1="260" y1="40" x2="260" y2="200" stroke="#f59e0b" strokeWidth="3"/>
+      <text x="245" y="30" className="text-[12px] font-bold fill-amber-600">LRAS</text>
       
-      {/* SRAS (y = 280 - x) */}
-      <line x1="60" y1="220" x2="260" y2="20" stroke="#ef4444" strokeWidth="3"/>
-      <text x="265" y="25" className="text-[12px] font-bold fill-red-500">SRAS</text>
+      {/* SRAS (Passes 260,90 with slope -0.5 => y = 220 - 0.5x) */}
+      <line x1="80" y1="180" x2="320" y2="60" stroke="#ef4444" strokeWidth="3"/>
+      <text x="325" y="55" className="text-[12px] font-bold fill-red-500">SRAS</text>
       
-      {/* AD 1 (y = x - 40) */}
-      <line x1="80" y1="40" x2="240" y2="200" stroke="#93c5fd" strokeWidth="3"/>
-      <text x="75" y="35" className="text-[12px] font-bold fill-blue-400">AD1</text>
+      {/* AD 1 (Passes 180,130 with slope 0.5 => y = 0.5x + 40) */}
+      <line x1="80" y1="80" x2="280" y2="180" stroke="#93c5fd" strokeWidth="3"/>
+      <text x="285" y="190" className="text-[12px] font-bold fill-blue-400">AD1</text>
       
-      {/* AD 2 (y = x - 80) */}
-      <line x1="100" y1="20" x2="260" y2="180" stroke="#2563eb" strokeWidth="3"/>
-      <text x="265" y="185" className="text-[12px] font-bold fill-blue-600">AD2</text>
+      {/* AD 2 (Shifted Right to perfectly hit LRAS at 260,90 => y = 0.5x - 40) */}
+      <line x1="160" y1="40" x2="360" y2="140" stroke="#3b82f6" strokeWidth="3"/>
+      <text x="365" y="150" className="text-[12px] font-bold fill-blue-600">AD2</text>
       
       {/* Shift Arrow */}
-      <line x1="110" y1="120" x2="145" y2="120" stroke="#2563eb" strokeWidth="2.5" markerEnd="url(#shiftArrow)"/>
+      <line x1="160" y1="120" x2="220" y2="120" stroke="#3b82f6" strokeWidth="3" markerEnd="url(#shiftArrow)"/>
 
-      {/* Equilibrium 1: (160, 120) */}
-      <line x1="160" y1="200" x2="160" y2="120" stroke="#94a3b8" strokeWidth="1.5" strokeDasharray="4,4"/>
-      <circle cx="160" cy="120" r="5" fill="#1e293b" stroke="#fff" strokeWidth="2"/>
-      <text x="165" y="135" className="text-[12px] font-black fill-slate-700">E1</text>
+      {/* Equilibrium 1: (180, 130) */}
+      <line x1="180" y1="200" x2="180" y2="130" stroke="#94a3b8" strokeWidth="1.5" strokeDasharray="4,4"/>
+      <circle cx="180" cy="130" r="5" fill="#1e293b" stroke="#fff" strokeWidth="2"/>
+      <text x="165" y="120" className="text-[12px] font-black fill-slate-700">E1</text>
 
-      {/* Equilibrium 2: (180, 100) -> Lands perfectly on LRAS! */}
-      <line x1="180" y1="200" x2="180" y2="100" stroke="#94a3b8" strokeWidth="1.5" strokeDasharray="4,4"/>
-      <circle cx="180" cy="100" r="5" fill="#1e293b" stroke="#fff" strokeWidth="2"/>
-      <text x="185" y="95" className="text-[12px] font-black fill-slate-700">E2</text>
+      {/* Equilibrium 2: (260, 90) -> Lands perfectly on LRAS! */}
+      <line x1="260" y1="200" x2="260" y2="90" stroke="#94a3b8" strokeWidth="1.5" strokeDasharray="4,4"/>
+      <circle cx="260" cy="90" r="5" fill="#1e293b" stroke="#fff" strokeWidth="2"/>
+      <text x="245" y="80" className="text-[12px] font-black fill-slate-700">E2</text>
 
     </svg>
-    <p className="text-sm text-center text-slate-600 mt-4 font-medium bg-slate-50 p-3 rounded-lg border border-slate-100">Expansionary Fiscal Policy shifts AD to the right, landing exactly on Potential Output (LRAS).</p>
+    <p className="text-sm text-center text-slate-600 mt-6 font-medium bg-slate-50 p-3 rounded-lg border border-slate-100">Expansionary Fiscal Policy shifts AD to the right, landing exactly on Potential Output (LRAS).</p>
   </div>
 );
 
 const ChartMoneyMarket = () => (
   <div className="w-full max-w-md mx-auto my-6 p-5 bg-white border border-slate-200 rounded-2xl shadow-sm">
-    <h4 className="text-center font-extrabold text-slate-800 mb-4 text-lg">The Money Market</h4>
+    <h4 className="text-center font-extrabold text-slate-800 mb-6 text-lg">The Money Market</h4>
     <svg viewBox="0 0 400 240" className="w-full h-auto overflow-visible">
       <defs>
         <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
@@ -181,32 +188,32 @@ const ChartMoneyMarket = () => (
         </marker>
       </defs>
 
-      {/* Axes */}
+      {/* Axes with horizontal labels */}
       <line x1="40" y1="200" x2="380" y2="200" stroke="#94a3b8" strokeWidth="2" markerEnd="url(#arrow)"/>
       <line x1="40" y1="200" x2="40" y2="30" stroke="#94a3b8" strokeWidth="2" markerEnd="url(#arrow)"/>
-      <text x="40" y="20" className="text-[12px] fill-slate-600 font-bold">Interest Rate (r)</text>
-      <text x="270" y="218" className="text-[12px] fill-slate-600 font-bold">Quantity of Money</text>
+      <text x="40" y="15" className="text-[12px] fill-slate-600 font-bold">Interest Rate (r)</text>
+      <text x="260" y="225" className="text-[12px] fill-slate-600 font-bold">Quantity of Money</text>
       
-      {/* Money Supply (Vertical at 160) */}
-      <line x1="160" y1="40" x2="160" y2="200" stroke="#f59e0b" strokeWidth="4"/>
-      <text x="148" y="30" className="text-[12px] font-bold fill-amber-600">MS</text>
+      {/* Money Supply (Vertical at 200) */}
+      <line x1="200" y1="40" x2="200" y2="200" stroke="#f59e0b" strokeWidth="4"/>
+      <text x="185" y="30" className="text-[12px] font-bold fill-amber-600">MS</text>
       
-      {/* Money Demand (y = x - 20) */}
-      <line x1="80" y1="60" x2="240" y2="220" stroke="#3b82f6" strokeWidth="3"/>
-      <text x="245" y="225" className="text-[12px] font-bold fill-blue-600">MD</text>
+      {/* Money Demand */}
+      <line x1="80" y1="60" x2="320" y2="180" stroke="#3b82f6" strokeWidth="3"/>
+      <text x="325" y="185" className="text-[12px] font-bold fill-blue-600">MD</text>
       
-      {/* Equilibrium Point (160, 140) */}
-      <line x1="40" y1="140" x2="160" y2="140" stroke="#94a3b8" strokeWidth="1.5" strokeDasharray="4,4"/>
-      <circle cx="160" cy="140" r="6" fill="#1e293b" stroke="#fff" strokeWidth="2"/>
-      <text x="20" y="145" className="text-[12px] font-bold fill-slate-700">r*</text>
+      {/* Equilibrium Point */}
+      <line x1="40" y1="120" x2="200" y2="120" stroke="#94a3b8" strokeWidth="1.5" strokeDasharray="4,4"/>
+      <circle cx="200" cy="120" r="6" fill="#1e293b" stroke="#fff" strokeWidth="2"/>
+      <text x="20" y="125" className="text-[12px] font-bold fill-slate-700">r*</text>
     </svg>
-    <p className="text-sm text-center text-slate-600 mt-4 font-medium bg-slate-50 p-3 rounded-lg border border-slate-100">The Fed sets a vertical Money Supply (MS), determining the equilibrium interest rate.</p>
+    <p className="text-sm text-center text-slate-600 mt-6 font-medium bg-slate-50 p-3 rounded-lg border border-slate-100">The Fed sets a vertical Money Supply (MS), determining the equilibrium interest rate.</p>
   </div>
 );
 
 const ChartPhillipsCurve = () => (
   <div className="w-full max-w-md mx-auto my-6 p-5 bg-white border border-slate-200 rounded-2xl shadow-sm">
-    <h4 className="text-center font-extrabold text-slate-800 mb-4 text-lg">The Phillips Curve</h4>
+    <h4 className="text-center font-extrabold text-slate-800 mb-6 text-lg">The Phillips Curve</h4>
     <svg viewBox="0 0 400 240" className="w-full h-auto overflow-visible">
       <defs>
         <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
@@ -214,27 +221,27 @@ const ChartPhillipsCurve = () => (
         </marker>
       </defs>
 
-      {/* Axes */}
+      {/* Axes with horizontal labels */}
       <line x1="40" y1="200" x2="380" y2="200" stroke="#94a3b8" strokeWidth="2" markerEnd="url(#arrow)"/>
       <line x1="40" y1="200" x2="40" y2="30" stroke="#94a3b8" strokeWidth="2" markerEnd="url(#arrow)"/>
-      <text x="40" y="20" className="text-[12px] fill-slate-600 font-bold">Inflation Rate</text>
-      <text x="250" y="218" className="text-[12px] fill-slate-600 font-bold">Unemployment Rate</text>
+      <text x="40" y="15" className="text-[12px] fill-slate-600 font-bold">Inflation Rate</text>
+      <text x="250" y="225" className="text-[12px] fill-slate-600 font-bold">Unemployment Rate</text>
       
-      {/* LRPC (x=180) */}
-      <line x1="180" y1="40" x2="180" y2="200" stroke="#f59e0b" strokeWidth="3"/>
-      <text x="165" y="30" className="text-[12px] font-bold fill-amber-600">LRPC</text>
-      <text x="165" y="215" className="text-[11px] font-bold fill-amber-600">NAIRU</text>
+      {/* LRPC (x=200) */}
+      <line x1="200" y1="40" x2="200" y2="200" stroke="#f59e0b" strokeWidth="3"/>
+      <text x="185" y="30" className="text-[12px] font-bold fill-amber-600">LRPC</text>
+      <text x="185" y="215" className="text-[11px] font-bold fill-amber-600">NAIRU</text>
       
-      {/* SRPC (y = x - 60) */}
-      <line x1="80" y1="20" x2="260" y2="200" stroke="#ef4444" strokeWidth="3"/>
-      <text x="265" y="205" className="text-[12px] font-bold fill-red-500">SRPC</text>
+      {/* SRPC */}
+      <line x1="80" y1="40" x2="320" y2="160" stroke="#ef4444" strokeWidth="3"/>
+      <text x="325" y="160" className="text-[12px] font-bold fill-red-500">SRPC</text>
       
-      {/* Intersection (180, 120) */}
-      <line x1="40" y1="120" x2="180" y2="120" stroke="#94a3b8" strokeWidth="1.5" strokeDasharray="4,4"/>
-      <circle cx="180" cy="120" r="6" fill="#1e293b" stroke="#fff" strokeWidth="2"/>
-      <text x="190" y="115" className="text-[11px] font-bold fill-slate-700 bg-white px-1">Expected = Actual</text>
+      {/* Points */}
+      <line x1="40" y1="100" x2="200" y2="100" stroke="#94a3b8" strokeWidth="1.5" strokeDasharray="4,4"/>
+      <circle cx="200" cy="100" r="6" fill="#1e293b" stroke="#fff" strokeWidth="2"/>
+      <text x="215" y="95" className="text-[11px] font-bold fill-slate-700 bg-white">Expected = Actual</text>
     </svg>
-    <p className="text-sm text-center text-slate-600 mt-4 font-medium bg-slate-50 p-3 rounded-lg border border-slate-100">The short-run trade-off between inflation and unemployment vanishes in the long-run at the NAIRU.</p>
+    <p className="text-sm text-center text-slate-600 mt-6 font-medium bg-slate-50 p-3 rounded-lg border border-slate-100">The short-run trade-off between inflation and unemployment vanishes in the long-run at the NAIRU.</p>
   </div>
 );
 
@@ -569,27 +576,55 @@ export default function App() {
                   <span className="text-sm font-bold bg-blue-100 text-blue-800 py-1 px-4 rounded-full">Card {currentIndex + 1} of {filteredCards.length}</span>
                 </div>
 
-                <div className="w-full min-h-[28rem] relative cursor-pointer [perspective:1000px] group" onClick={() => setIsFlipped(!isFlipped)}>
-                  <div className={`w-full h-full transition-transform duration-500 [transform-style:preserve-3d] shadow-xl rounded-2xl relative ${isFlipped ? '[transform:rotateY(180deg)]' : ''}`}>
+                {/* Highly robust layout to prevent inner card overlapping / bleeding out */}
+                <div 
+                  className="w-full h-96 md:h-[32rem] relative cursor-pointer group" 
+                  onClick={() => setIsFlipped(!isFlipped)}
+                  style={{ perspective: '1000px' }}
+                >
+                  <div 
+                    className="w-full h-full transition-transform duration-500 shadow-xl rounded-2xl relative"
+                    style={{ transformStyle: 'preserve-3d', transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)' }}
+                  >
                     {/* Front */}
-                    <div className="absolute w-full h-full bg-white rounded-2xl p-8 flex flex-col items-center justify-center [backface-visibility:hidden] border-t-4 border-blue-500">
-                      <span className="text-blue-500 font-bold mb-4 uppercase tracking-widest text-xs border border-blue-200 px-3 py-1 rounded-full">Question</span>
-                      <h2 className="text-2xl md:text-3xl font-semibold text-center leading-relaxed">{filteredCards[currentIndex].question}</h2>
-                      <p className="absolute bottom-6 text-slate-400 text-sm flex items-center gap-1 opacity-70 group-hover:opacity-100 transition-opacity font-medium"><RotateCcw size={14}/> Click to flip</p>
-                    </div>
-                    {/* Back */}
-                    <div className="absolute w-full h-full bg-blue-50 rounded-2xl p-6 flex flex-col items-center justify-start [backface-visibility:hidden] [transform:rotateY(180deg)] border-t-4 border-green-500 overflow-y-auto">
-                      <span className="text-green-600 font-bold mb-2 uppercase tracking-widest text-xs border border-green-200 px-3 py-1 rounded-full shrink-0">Answer</span>
-                      <p className="text-base md:text-lg text-center leading-relaxed whitespace-pre-line text-slate-700 mb-4">
-                        {filteredCards[currentIndex].answer}
-                      </p>
+                    <div 
+                      className="absolute inset-0 w-full h-full bg-white rounded-2xl p-8 flex flex-col items-center justify-center border-t-4 border-blue-500"
+                      style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}
+                    >
+                      <div className="absolute top-6">
+                        <span className="text-blue-500 font-bold uppercase tracking-widest text-xs border border-blue-200 px-3 py-1 rounded-full bg-blue-50">Question</span>
+                      </div>
                       
-                      {/* Inject Visual Graphic into Flashcard if it exists */}
-                      {filteredCards[currentIndex].graphic && (
-                        <div className="w-full max-w-[320px] shrink-0 mt-auto bg-white rounded-xl shadow-sm p-2 border border-slate-200">
-                          {renderGraphic(filteredCards[currentIndex].graphic)}
-                        </div>
-                      )}
+                      <h2 className="text-2xl md:text-3xl font-semibold text-center leading-relaxed px-4">
+                        {filteredCards[currentIndex].question}
+                      </h2>
+                      
+                      <div className="absolute bottom-6 flex items-center justify-center w-full">
+                        <p className="text-slate-400 text-sm flex items-center gap-1 font-medium"><RotateCcw size={14}/> Click to flip</p>
+                      </div>
+                    </div>
+
+                    {/* Back */}
+                    <div 
+                      className="absolute inset-0 w-full h-full bg-blue-50 rounded-2xl p-6 flex flex-col items-center justify-start border-t-4 border-green-500 overflow-y-auto"
+                      style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}
+                    >
+                      <div className="shrink-0 mb-4">
+                        <span className="text-green-600 font-bold uppercase tracking-widest text-xs border border-green-200 px-3 py-1 rounded-full bg-green-100">Answer</span>
+                      </div>
+                      
+                      <div className="flex-1 w-full flex flex-col items-center justify-center">
+                        <p className="text-base md:text-lg text-center leading-relaxed whitespace-pre-line text-slate-700">
+                          {filteredCards[currentIndex].answer}
+                        </p>
+                        
+                        {/* Inject Visual Graphic into Flashcard if it exists */}
+                        {filteredCards[currentIndex].graphic && (
+                          <div className="w-full max-w-[320px] shrink-0 mt-4 bg-white rounded-xl shadow-sm border border-slate-200 p-2">
+                            {renderGraphic(filteredCards[currentIndex].graphic)}
+                          </div>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>
