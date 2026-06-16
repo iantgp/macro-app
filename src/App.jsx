@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
-import { ChevronLeft, ChevronRight, RotateCcw, BookOpen, Calculator, BrainCircuit, CheckCircle2, XCircle, GraduationCap, Trophy, RefreshCw, BookText, Filter, Moon, Sun, BarChart3, AlertTriangle, Timer, Clock, Info, ChevronDown } from 'lucide-react';
+import { ChevronLeft, ChevronRight, RotateCcw, BookOpen, Calculator, BrainCircuit, CheckCircle2, XCircle, GraduationCap, Trophy, RefreshCw, BookText, Filter, Moon, Sun, BarChart3, AlertTriangle, Timer, Clock, Info, ChevronDown, PlayCircle } from 'lucide-react';
 
 // --------------------------------------------------------------------------
 // 100% MATHEMATICALLY ACCURATE MACROECONOMIC SVG GRAPHICS
@@ -321,6 +321,12 @@ export default function App() {
     setProgress(prev => ({ ...prev, [id]: status }));
   };
 
+  const resetProgress = () => {
+    if (window.confirm("Are you sure you want to reset all your progress?")) {
+      setProgress({});
+    }
+  };
+
   // Flashcard State
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isFlipped, setIsFlipped] = useState(false);
@@ -406,6 +412,24 @@ export default function App() {
          setQuestionTimeLeft(30);
        }, 150);
      }
+  };
+
+  // Direct Task Navigation Handler
+  const handleNavigateToTask = (task, statChapter) => {
+    setSelectedChapter(statChapter);
+    setShowNeedsReviewOnly(false); // Turn off the filter so the user sees the task in context
+    
+    if (task.type === 'Concept') {
+      setActiveTab('flashcards');
+      const index = flashcardsData.filter(c => c.chapter === statChapter).findIndex(c => c.id === task.id);
+      setCurrentIndex(Math.max(0, index));
+      setIsFlipped(false);
+    } else {
+      setActiveTab('practice');
+      const index = practiceData.filter(p => p.chapter.includes(statChapter)).findIndex(p => p.id === task.id);
+      setPracticeIndex(Math.max(0, index));
+      setShowSolution(false);
+    }
   };
 
   // Keyboard Shortcuts
@@ -650,6 +674,23 @@ export default function App() {
           {/* ANALYTICS DASHBOARD */}
           {activeTab === 'analytics' && (
             <div className="w-full animate-in fade-in duration-500 flex flex-col gap-6">
+              
+              {/* Global Study Controls */}
+              <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mb-2">
+                 <button 
+                   onClick={() => { setActiveTab('flashcards'); setSelectedChapter('All Chapters'); setShowNeedsReviewOnly(true); }} 
+                   className="px-8 py-3 bg-orange-500 text-white font-bold rounded-full hover:bg-orange-600 shadow-md transition-colors flex items-center gap-2 w-full sm:w-auto justify-center"
+                 >
+                   <PlayCircle size={20}/> Study All Weaknesses
+                 </button>
+                 <button 
+                   onClick={resetProgress} 
+                   className="px-6 py-3 bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-bold rounded-full hover:bg-slate-300 dark:hover:bg-slate-700 transition-colors flex items-center gap-2 w-full sm:w-auto justify-center"
+                 >
+                   <RotateCcw size={18}/> Reset Progress
+                 </button>
+              </div>
+
               <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-sm p-8 text-center border border-slate-200 dark:border-slate-700">
                 <BarChart3 size={48} className="mx-auto mb-4 text-indigo-500" />
                 <h2 className="text-3xl font-bold text-slate-800 dark:text-slate-100 mb-6">Weakness Dashboard</h2>
@@ -707,14 +748,24 @@ export default function App() {
                                }}
                                className="px-3 py-1.5 bg-indigo-100 hover:bg-indigo-200 dark:bg-indigo-900/30 dark:hover:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300 rounded-md text-xs font-bold transition-colors shadow-sm"
                              >
-                               Study This Chapter Now
+                               Study This Chapter
                              </button>
                           </div>
-                          <ul className="text-sm flex flex-col gap-2 max-h-48 overflow-y-auto pr-2 scrollbar-thin">
+                          <ul className="flex flex-col gap-2 max-h-56 overflow-y-auto pr-2 scrollbar-thin">
                              {getUnmasteredTasks(stat.chapter).map(task => (
-                                <li key={task.id} className="bg-white dark:bg-slate-900 p-3 rounded-lg border border-slate-100 dark:border-slate-700 flex justify-between items-center gap-3">
-                                   <span className="truncate flex-1 text-slate-600 dark:text-slate-300" title={task.question}>{task.question}</span>
-                                   <span className={`text-[10px] uppercase font-bold px-2 py-1 rounded-md shrink-0 ${task.type === 'Concept' ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/50 dark:text-blue-300' : 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/50 dark:text-indigo-300'}`}>{task.type}</span>
+                                <li 
+                                  key={task.id} 
+                                  onClick={(e) => { e.stopPropagation(); handleNavigateToTask(task, stat.chapter); }}
+                                  className="bg-white dark:bg-slate-900 p-3 rounded-lg border border-slate-100 dark:border-slate-700 flex justify-between items-center gap-3 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors group"
+                                >
+                                   <div className="flex-1 flex flex-col overflow-hidden text-left">
+                                     <span className="truncate text-slate-700 dark:text-slate-200 font-medium group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors text-sm" title={task.question}>{task.question}</span>
+                                     {task.topic && <span className="text-xs text-slate-400 truncate mt-0.5">{task.topic}</span>}
+                                   </div>
+                                   <div className="flex items-center gap-2 shrink-0">
+                                     <span className={`text-[10px] uppercase font-bold px-2 py-1 rounded-md ${task.type === 'Concept' ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/50 dark:text-blue-300' : 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/50 dark:text-indigo-300'}`}>{task.type}</span>
+                                     <ChevronRight size={16} className="text-slate-400 group-hover:text-indigo-500 transition-colors" />
+                                   </div>
                                 </li>
                              ))}
                              {getUnmasteredTasks(stat.chapter).length === 0 && (
